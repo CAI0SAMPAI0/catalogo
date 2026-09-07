@@ -1,0 +1,24 @@
+[tool.ruff]
+# Configurações globais que afetam o 'ruff check' e o 'ruff format'
+exclude = [
+    ".venv",
+    "venv",
+    "migrations",
+    "__pycache__",
+    "manage.py",
+]
+
+[tool.ruff.lint]
+# "I" ativa o Isort (organização de imports) junto com os padrões "E" e "F"
+select = ["E", "F", "I"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+exclude = [
+    ".venv",
+    "venv",
+    "migrations",
+    "__pycache__",
+    "manage.py",
+]
