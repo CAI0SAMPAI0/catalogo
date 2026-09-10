@@ -47,7 +47,7 @@ def list_musics(request, name: str | None = None, id: int | None = None):
     musics = (
         Music.objects.select_related("genre")
         .prefetch_related("platforms")
-        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews"))
+        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews", distinct=True))
     )
     if id is not None:
         musics = musics.filter(id=id)
@@ -61,7 +61,7 @@ def get_music_by_id(request, music_id: int):
     return get_object_or_404(
         Music.objects.select_related("genre")
         .prefetch_related("platforms")
-        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews")),
+        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews", distinct=True)),
         id=music_id,
     )
 

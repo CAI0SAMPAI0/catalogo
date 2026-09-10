@@ -260,7 +260,9 @@ export default function BooksPage() {
 
       {selectedBookForReview && (
         <ReviewModal
-          game={selectedBookForReview}
+          item={selectedBookForReview}
+          mediaType="books"
+          accentColor={accentColor}
           isOpen={!!selectedBookForReview}
           onClose={() => setSelectedBookForReview(null)}
           onReviewChange={handleReviewChange}

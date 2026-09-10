@@ -47,7 +47,7 @@ def list_games(request, name: str | None = None, id: int | None = None):
     games = (
         Game.objects.select_related("genre")
         .prefetch_related("platforms")
-        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews"))
+        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews", distinct=True))
     )
     if id is not None:
         games = games.filter(id=id)
@@ -61,7 +61,7 @@ def get_game_by_id(request, game_id: int):
     return get_object_or_404(
         Game.objects.select_related("genre")
         .prefetch_related("platforms")
-        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews")),
+        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews", distinct=True)),
         id=game_id,
     )
 

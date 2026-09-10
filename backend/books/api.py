@@ -47,7 +47,7 @@ def list_books(request, name: str | None = None, id: int | None = None):
     books = (
         Book.objects.select_related("genre")
         .prefetch_related("platforms")
-        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews"))
+        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews", distinct=True))
     )
     if id is not None:
         books = books.filter(id=id)
@@ -61,7 +61,7 @@ def get_book_by_id(request, book_id: int):
     return get_object_or_404(
         Book.objects.select_related("genre")
         .prefetch_related("platforms")
-        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews")),
+        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews", distinct=True)),
         id=book_id,
     )
 

@@ -260,7 +260,9 @@ export default function MoviesPage() {
 
       {selectedMovieForReview && (
         <ReviewModal
-          game={selectedMovieForReview}
+          item={selectedMovieForReview}
+          mediaType="movies"
+          accentColor={accentColor}
           isOpen={!!selectedMovieForReview}
           onClose={() => setSelectedMovieForReview(null)}
           onReviewChange={handleReviewChange}

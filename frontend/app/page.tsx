@@ -3,31 +3,38 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { UNSPLASH, getGameCover } from "@/lib/catalogData";
-import { GameIcon, FilmIcon, TvIcon, BookIcon } from "@/components/MediaIcons";
+import { GameIcon, FilmIcon, TvIcon, BookIcon, MusicIcon } from "@/components/MediaIcons";
 import MediaCard, { MediaCardItem } from "@/components/MediaCard";
-import ReviewModal from "@/components/ReviewModal";
-import { getGames, getMovies, getSeries, getBooks } from "@/lib/api";
-import { Game, Movie, Serie, Book } from "@/types/game";
+import ReviewModal, { MediaType, ReviewItemTarget } from "@/components/ReviewModal";
+import { getGames, getMovies, getSeries, getBooks, getMusics } from "@/lib/api";
+import { Game, Movie, Serie, Book, Music } from "@/types/game";
 
 export default function Home() {
   const [games, setGames] = useState<Game[]>([]);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [series, setSeries] = useState<Serie[]>([]);
   const [books, setBooks] = useState<Book[]>([]);
-  const [selectedItemForReview, setSelectedItemForReview] = useState<Game | null>(null);
+  const [musics, setMusics] = useState<Music[]>([]);
+  const [selectedReviewTarget, setSelectedReviewTarget] = useState<{
+    item: ReviewItemTarget;
+    mediaType: MediaType;
+    accentColor: string;
+  } | null>(null);
 
   async function loadAllData() {
     try {
-      const [g, m, s, b] = await Promise.all([
+      const [g, m, s, b, mu] = await Promise.all([
         getGames().catch(() => []),
         getMovies().catch(() => []),
         getSeries().catch(() => []),
         getBooks().catch(() => []),
+        getMusics().catch(() => []),
       ]);
       setGames(g);
       setMovies(m);
       setSeries(s);
       setBooks(b);
+      setMusics(mu);
     } catch {
       // Ignora falhas pontuais
     }
@@ -74,53 +81,105 @@ export default function Home() {
       img: UNSPLASH.library,
       href: "/books",
     },
+    {
+      key: "musicas",
+      label: "Músicas",
+      count: musics.length,
+      icon: <MusicIcon className="w-5 h-5" />,
+      color: "#22c55e",
+      img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=500&fit=crop",
+      href: "/musics",
+    },
   ];
 
-  // Converte itens dos 4 universos do banco Neon para MediaCards de destaque
-  const highlights: MediaCardItem[] = [
+  interface HighlightTarget {
+    card: MediaCardItem;
+    item: ReviewItemTarget;
+    mediaType: MediaType;
+    accentColor: string;
+  }
+
+  // Converte itens dos 5 universos do banco Neon para MediaCards de destaque
+  const highlightTargets: HighlightTarget[] = [
     ...games.slice(0, 2).map((g) => ({
-      id: g.id,
-      title: g.name,
-      genre: [g.type, ...(g.genre ? [g.genre] : [])],
-      desc: g.description,
-      rating: g.average_rating,
-      reviews: g.review_count,
-      img: g.cover_url || getGameCover(g.name, g.type),
-      images: g.images && g.images.length > 0 ? g.images : undefined,
-      platforms: g.platforms,
+      card: {
+        id: g.id,
+        title: g.name,
+        genre: [g.type, ...(g.genre ? [g.genre] : [])],
+        desc: g.description,
+        rating: g.average_rating,
+        reviews: g.review_count,
+        img: g.cover_url || getGameCover(g.name, g.type),
+        images: g.images && g.images.length > 0 ? g.images : undefined,
+        platforms: g.platforms,
+      },
+      item: g,
+      mediaType: "games" as MediaType,
+      accentColor: "#2563eb",
     })),
-    ...movies.slice(0, 2).map((m) => ({
-      id: m.id,
-      title: m.name,
-      genre: [m.type, ...(m.genre ? [m.genre] : [])],
-      desc: m.description,
-      rating: m.average_rating,
-      reviews: m.review_count,
-      img: m.cover_url || "https://images.unsplash.com/photo-1650475958723-e8d850c26f67?w=800&h=500&fit=crop",
-      images: m.images && m.images.length > 0 ? m.images : undefined,
-      platforms: m.platforms,
+    ...movies.slice(0, 1).map((m) => ({
+      card: {
+        id: m.id,
+        title: m.name,
+        genre: [m.type, ...(m.genre ? [m.genre] : [])],
+        desc: m.description,
+        rating: m.average_rating,
+        reviews: m.review_count,
+        img: m.cover_url || "https://images.unsplash.com/photo-1650475958723-e8d850c26f67?w=800&h=500&fit=crop",
+        images: m.images && m.images.length > 0 ? m.images : undefined,
+        platforms: m.platforms,
+      },
+      item: m,
+      mediaType: "movies" as MediaType,
+      accentColor: "#e11d48",
     })),
     ...series.slice(0, 1).map((s) => ({
-      id: s.id,
-      title: s.name,
-      genre: [s.type, ...(s.genre ? [s.genre] : [])],
-      desc: s.description,
-      rating: s.average_rating,
-      reviews: s.review_count,
-      img: s.cover_url || "https://images.unsplash.com/photo-1643208589889-0735ad7218f0?w=800&h=500&fit=crop",
-      images: s.images && s.images.length > 0 ? s.images : undefined,
-      platforms: s.platforms,
+      card: {
+        id: s.id,
+        title: s.name,
+        genre: [s.type, ...(s.genre ? [s.genre] : [])],
+        desc: s.description,
+        rating: s.average_rating,
+        reviews: s.review_count,
+        img: s.cover_url || "https://images.unsplash.com/photo-1643208589889-0735ad7218f0?w=800&h=500&fit=crop",
+        images: s.images && s.images.length > 0 ? s.images : undefined,
+        platforms: s.platforms,
+      },
+      item: s,
+      mediaType: "series" as MediaType,
+      accentColor: "#7c3aed",
     })),
     ...books.slice(0, 1).map((b) => ({
-      id: b.id,
-      title: b.name,
-      genre: [b.type, ...(b.genre ? [b.genre] : [])],
-      desc: b.description,
-      rating: b.average_rating,
-      reviews: b.review_count,
-      img: b.cover_url || "https://images.unsplash.com/photo-1535905496755-26ae35d0ae54?w=800&h=500&fit=crop",
-      images: b.images && b.images.length > 0 ? b.images : undefined,
-      platforms: b.platforms,
+      card: {
+        id: b.id,
+        title: b.name,
+        genre: [b.type, ...(b.genre ? [b.genre] : [])],
+        desc: b.description,
+        rating: b.average_rating,
+        reviews: b.review_count,
+        img: b.cover_url || "https://images.unsplash.com/photo-1535905496755-26ae35d0ae54?w=800&h=500&fit=crop",
+        images: b.images && b.images.length > 0 ? b.images : undefined,
+        platforms: b.platforms,
+      },
+      item: b,
+      mediaType: "books" as MediaType,
+      accentColor: "#d97706",
+    })),
+    ...musics.slice(0, 1).map((mu) => ({
+      card: {
+        id: mu.id,
+        title: mu.name,
+        genre: [mu.type, ...(mu.genre ? [mu.genre] : [])],
+        desc: mu.description,
+        rating: mu.average_rating,
+        reviews: mu.review_count,
+        img: mu.cover_url || "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=500&fit=crop",
+        images: mu.images && mu.images.length > 0 ? mu.images : undefined,
+        platforms: mu.platforms,
+      },
+      item: mu,
+      mediaType: "musics" as MediaType,
+      accentColor: "#22c55e",
     })),
   ];
 
@@ -289,7 +348,7 @@ export default function Home() {
             className="text-2xl font-bold text-slate-900 clip-accent"
             style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
           >
-            Destaques do Catálogo (Neon PostgreSQL)
+            Destaques do Catálogo
           </h2>
 
           <Link
@@ -302,14 +361,13 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {highlights.map((item) => (
+          {highlightTargets.map(({ card, item, mediaType, accentColor }) => (
             <MediaCard
-              key={`${item.id}-${item.title}`}
-              item={item}
-              accentColor="#2563eb"
-              onOpenReviews={(card) => {
-                const found = games.find((g) => g.id === card.id);
-                if (found) setSelectedItemForReview(found);
+              key={`${mediaType}-${card.id}-${card.title}`}
+              item={card}
+              accentColor={accentColor}
+              onOpenReviews={() => {
+                setSelectedReviewTarget({ item, mediaType, accentColor });
               }}
             />
           ))}
@@ -317,11 +375,13 @@ export default function Home() {
       </section>
 
       {/* Modal de Reviews */}
-      {selectedItemForReview && (
+      {selectedReviewTarget && (
         <ReviewModal
-          game={selectedItemForReview}
-          isOpen={!!selectedItemForReview}
-          onClose={() => setSelectedItemForReview(null)}
+          item={selectedReviewTarget.item}
+          mediaType={selectedReviewTarget.mediaType}
+          accentColor={selectedReviewTarget.accentColor}
+          isOpen={!!selectedReviewTarget}
+          onClose={() => setSelectedReviewTarget(null)}
           onReviewChange={() => {
             loadAllData();
           }}

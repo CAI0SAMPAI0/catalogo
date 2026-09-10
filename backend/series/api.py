@@ -47,7 +47,7 @@ def list_series(request, name: str | None = None, id: int | None = None):
     series = (
         Serie.objects.select_related("genre")
         .prefetch_related("platforms")
-        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews"))
+        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews", distinct=True))
     )
     if id is not None:
         series = series.filter(id=id)
@@ -61,7 +61,7 @@ def get_serie_by_id(request, serie_id: int):
     return get_object_or_404(
         Serie.objects.select_related("genre")
         .prefetch_related("platforms")
-        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews")),
+        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews", distinct=True)),
         id=serie_id,
     )
 

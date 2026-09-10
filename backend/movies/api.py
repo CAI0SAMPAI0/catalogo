@@ -47,7 +47,7 @@ def list_movies(request, name: str | None = None, id: int | None = None):
     movies = (
         Movie.objects.select_related("genre")
         .prefetch_related("platforms")
-        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews"))
+        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews", distinct=True))
     )
     if id is not None:
         movies = movies.filter(id=id)
@@ -61,7 +61,7 @@ def get_movie_by_id(request, movie_id: int):
     return get_object_or_404(
         Movie.objects.select_related("genre")
         .prefetch_related("platforms")
-        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews")),
+        .annotate(average_rating=Avg("reviews__rating"), review_count=Count("reviews", distinct=True)),
         id=movie_id,
     )
 

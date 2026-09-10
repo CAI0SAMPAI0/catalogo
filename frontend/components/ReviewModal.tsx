@@ -2,23 +2,100 @@
 
 import { useEffect, useState } from "react";
 import { X, Star, MessageSquare, Trash2, Send, Loader2, AlertCircle } from "lucide-react";
-import { Game, Review } from "@/types/game";
-import { getReviews, createReview, deleteReview } from "@/lib/api";
+import { Review } from "@/types/game";
+import {
+  getReviews,
+  createReview,
+  deleteReview,
+  getMovieReviews,
+  createMovieReview,
+  deleteMovieReview,
+  getSerieReviews,
+  createSerieReview,
+  deleteSerieReview,
+  getBookReviews,
+  createBookReview,
+  deleteBookReview,
+  getMusicReviews,
+  createMusicReview,
+  deleteMusicReview,
+} from "@/lib/api";
 import StarRating from "./StarRating";
 
+export type MediaType = "games" | "movies" | "series" | "books" | "musics";
+
+export interface ReviewItemTarget {
+  id: number;
+  name: string;
+  type?: string | null;
+  genre?: string | null;
+  average_rating?: number | null;
+}
+
 interface ReviewModalProps {
-  game: Game | null;
+  item?: ReviewItemTarget | null;
+  game?: ReviewItemTarget | null;
+  mediaType?: MediaType;
   isOpen: boolean;
   onClose: () => void;
   onReviewChange: () => void;
+  accentColor?: string;
 }
 
+const MEDIA_CONFIG: Record<
+  MediaType,
+  {
+    audience: string;
+    commentPlaceholder: string;
+    authorPlaceholder: string;
+    defaultColor: string;
+  }
+> = {
+  games: {
+    audience: "jogadores",
+    commentPlaceholder: "Conte o que achou da jogabilidade, história ou gráficos...",
+    authorPlaceholder: "Ex: Geralt de Rívia / Jogador",
+    defaultColor: "#2563eb",
+  },
+  movies: {
+    audience: "espectadores",
+    commentPlaceholder: "Conte o que achou do roteiro, direção, atuações ou trilha sonora...",
+    authorPlaceholder: "Ex: Cinéfilo / Crítico",
+    defaultColor: "#2563eb",
+  },
+  series: {
+    audience: "espectadores",
+    commentPlaceholder: "Conte o que achou da temporada, episódios, personagens ou ritmo...",
+    authorPlaceholder: "Ex: Maratoneiro / Fã de Séries",
+    defaultColor: "#7c3aed",
+  },
+  books: {
+    audience: "leitores",
+    commentPlaceholder: "Conte o que achou da escrita, narrativa, ritmo ou profundidade...",
+    authorPlaceholder: "Ex: Leitor Ávido / Crítico Literário",
+    defaultColor: "#d97706",
+  },
+  musics: {
+    audience: "ouvintes",
+    commentPlaceholder: "Conte o que achou do arranjo, letra, vocais, produção ou solos...",
+    authorPlaceholder: "Ex: Audiófilo / Fã",
+    defaultColor: "#22c55e",
+  },
+};
+
 export default function ReviewModal({
+  item,
   game,
+  mediaType = "games",
   isOpen,
   onClose,
   onReviewChange,
+  accentColor,
 }: ReviewModalProps) {
+  const target = item || game;
+  const config = MEDIA_CONFIG[mediaType] || MEDIA_CONFIG.games;
+  const color = accentColor || config.defaultColor;
+
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoadingReviews, setIsLoadingReviews] = useState(false);
 
@@ -28,18 +105,29 @@ export default function ReviewModal({
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
-
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!isOpen || !game) return;
+    if (!isOpen || !target) return;
 
     let mounted = true;
 
     async function loadReviews() {
       try {
         setIsLoadingReviews(true);
-        const data = await getReviews(game!.id);
+        let data: Review[] = [];
+        if (mediaType === "movies") {
+          data = await getMovieReviews(target!.id);
+        } else if (mediaType === "series") {
+          data = await getSerieReviews(target!.id);
+        } else if (mediaType === "books") {
+          data = await getBookReviews(target!.id);
+        } else if (mediaType === "musics") {
+          data = await getMusicReviews(target!.id);
+        } else {
+          data = await getReviews(target!.id);
+        }
+
         if (mounted) setReviews(data);
       } catch (err) {
         console.error("Erro ao carregar avaliações:", err);
@@ -53,9 +141,9 @@ export default function ReviewModal({
     return () => {
       mounted = false;
     };
-  }, [isOpen, game]);
+  }, [isOpen, target, mediaType]);
 
-  if (!isOpen || !game) return null;
+  if (!isOpen || !target) return null;
 
   async function handleSubmitReview(e: React.FormEvent) {
     e.preventDefault();
@@ -78,11 +166,24 @@ export default function ReviewModal({
 
     try {
       setIsSubmitting(true);
-      const newReview = await createReview(game!.id, {
+      const payload = {
         author: author.trim(),
         rating,
         comment: comment.trim() || undefined,
-      });
+      };
+
+      let newReview: Review;
+      if (mediaType === "movies") {
+        newReview = await createMovieReview(target!.id, payload);
+      } else if (mediaType === "series") {
+        newReview = await createSerieReview(target!.id, payload);
+      } else if (mediaType === "books") {
+        newReview = await createBookReview(target!.id, payload);
+      } else if (mediaType === "musics") {
+        newReview = await createMusicReview(target!.id, payload);
+      } else {
+        newReview = await createReview(target!.id, payload);
+      }
 
       setReviews((prev) => [newReview, ...prev]);
       setAuthor("");
@@ -103,7 +204,18 @@ export default function ReviewModal({
   async function handleDeleteReview(reviewId: number) {
     try {
       setDeletingId(reviewId);
-      await deleteReview(game!.id, reviewId);
+      if (mediaType === "movies") {
+        await deleteMovieReview(target!.id, reviewId);
+      } else if (mediaType === "series") {
+        await deleteSerieReview(target!.id, reviewId);
+      } else if (mediaType === "books") {
+        await deleteBookReview(target!.id, reviewId);
+      } else if (mediaType === "musics") {
+        await deleteMusicReview(target!.id, reviewId);
+      } else {
+        await deleteReview(target!.id, reviewId);
+      }
+
       setReviews((prev) => prev.filter((r) => r.id !== reviewId));
       onReviewChange();
     } catch (err) {
@@ -113,6 +225,8 @@ export default function ReviewModal({
     }
   }
 
+  const categoryBadge = target.type || target.genre || "Mídia";
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
       <div className="relative flex flex-col w-full max-w-2xl max-h-[85vh] rounded-2xl bg-white border border-slate-200 shadow-2xl overflow-hidden">
@@ -121,20 +235,25 @@ export default function ReviewModal({
           <div>
             <div className="flex items-center gap-2">
               <span
-                className="rounded-md bg-blue-50 px-2 py-0.5 text-xs font-bold text-blue-600 border border-blue-200"
-                style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
+                className="rounded-md px-2 py-0.5 text-xs font-bold shadow-2xs"
+                style={{
+                  fontFamily: "var(--font-rajdhani), sans-serif",
+                  backgroundColor: `${color}15`,
+                  color: color,
+                  border: `1px solid ${color}35`,
+                }}
               >
-                {game.type}
+                {categoryBadge}
               </span>
               <h2
                 className="text-xl font-bold text-slate-900 line-clamp-1"
                 style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
               >
-                {game.name}
+                {target.name}
               </h2>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              Avaliações da comunidade e comentários de jogadores
+              Avaliações da comunidade e comentários de {config.audience}
             </p>
           </div>
 
@@ -151,8 +270,11 @@ export default function ReviewModal({
           {/* Formulário de Envio de Review */}
           <div className="rounded-xl p-4 bg-slate-50 border border-slate-200/80">
             <h3
-              className="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5 mb-3"
-              style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
+              className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 mb-3"
+              style={{
+                fontFamily: "var(--font-rajdhani), sans-serif",
+                color: color,
+              }}
             >
               <MessageSquare className="w-4 h-4" />
               Deixe sua Avaliação
@@ -170,15 +292,16 @@ export default function ReviewModal({
                 {/* Nome do Autor */}
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    Seu Nome <span className="text-blue-600">*</span>
+                    Seu Nome <span style={{ color }}>*</span>
                   </label>
                   <input
                     type="text"
                     required
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
-                    placeholder="Ex: Geralt de Rívia"
-                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:outline-none"
+                    placeholder={config.authorPlaceholder}
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none"
+                    style={{ borderColor: author ? color : undefined }}
                   />
                 </div>
 
@@ -208,8 +331,8 @@ export default function ReviewModal({
                   maxLength={500}
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  placeholder="Conte o que achou da jogabilidade, história ou gráficos..."
-                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:outline-none"
+                  placeholder={config.commentPlaceholder}
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none"
                 />
               </div>
 
@@ -217,8 +340,12 @@ export default function ReviewModal({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 px-4 py-2 text-xs font-bold text-white shadow-sm shadow-blue-500/20 transition-all hover:scale-[1.02] disabled:opacity-50"
-                  style={{ fontFamily: "var(--font-rajdhani), sans-serif", fontSize: "0.9rem" }}
+                  className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold text-white shadow-sm transition-all hover:scale-[1.02] disabled:opacity-50"
+                  style={{
+                    backgroundColor: color,
+                    fontFamily: "var(--font-rajdhani), sans-serif",
+                    fontSize: "0.9rem",
+                  }}
                 >
                   {isSubmitting ? (
                     <>
@@ -245,10 +372,10 @@ export default function ReviewModal({
               >
                 Histórico de Avaliações ({reviews.length})
               </h3>
-              {game.average_rating && (
+              {target.average_rating && (
                 <div className="flex items-center gap-1 text-xs text-slate-600 font-semibold">
                   <span>Média geral:</span>
-                  <span className="font-bold text-amber-500">{game.average_rating.toFixed(1)}</span>
+                  <span className="font-bold text-amber-500">{target.average_rating.toFixed(1)}</span>
                   <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                 </div>
               )}
@@ -256,7 +383,7 @@ export default function ReviewModal({
 
             {isLoadingReviews ? (
               <div className="py-8 flex flex-col items-center justify-center gap-2 text-xs text-slate-400">
-                <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+                <Loader2 className="w-5 h-5 animate-spin" style={{ color }} />
                 <span>Carregando avaliações...</span>
               </div>
             ) : reviews.length === 0 ? (

@@ -300,7 +300,9 @@ export default function GamesCatalog() {
       {/* Modal de Avaliações / Reviews */}
       {selectedGameForReview && (
         <ReviewModal
-          game={selectedGameForReview}
+          item={selectedGameForReview}
+          mediaType="games"
+          accentColor={accentColor}
           isOpen={!!selectedGameForReview}
           onClose={() => setSelectedGameForReview(null)}
           onReviewChange={handleReviewChange}

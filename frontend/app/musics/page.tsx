@@ -288,7 +288,9 @@ export default function MusicsPage() {
 
       {selectedMusicForReview && (
         <ReviewModal
-          game={selectedMusicForReview}
+          item={selectedMusicForReview}
+          mediaType="musics"
+          accentColor={accentColor}
           isOpen={!!selectedMusicForReview}
           onClose={() => setSelectedMusicForReview(null)}
           onReviewChange={handleReviewChange}

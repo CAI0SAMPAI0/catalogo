@@ -263,7 +263,9 @@ export default function SeriesPage() {
 
       {selectedSerieForReview && (
         <ReviewModal
-          game={selectedSerieForReview}
+          item={selectedSerieForReview}
+          mediaType="series"
+          accentColor={accentColor}
           isOpen={!!selectedSerieForReview}
           onClose={() => setSelectedSerieForReview(null)}
           onReviewChange={handleReviewChange}
