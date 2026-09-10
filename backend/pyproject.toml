@@ -12,6 +12,8 @@ dependencies = [
     "python-dotenv>=1.0",
     "pydantic>=2.0",
     "httpx>=0.25",
+    "gunicorn>=21.0",
+    "whitenoise>=6.6",
 ]
 
 [tool.ruff]
