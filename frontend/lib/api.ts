@@ -10,9 +10,12 @@ import {
   BookCreateInput,
   Review,
   ReviewCreateInput,
+  Music,
+  MusicCreateInput,
 } from "@/types/game";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
+const rawBase = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
+const API_BASE_URL = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
 
 /**
  * Utilitário central de requisições com tratamento de erro padronizado.
@@ -219,6 +222,43 @@ export async function createBookReview(bookId: number, data: ReviewCreateInput):
 
 export async function deleteBookReview(bookId: number, reviewId: number): Promise<void> {
   return request<void>(`/books/${bookId}/reviews/${reviewId}`, {
+    method: "DELETE",
+  });
+}
+
+/* Musicas */
+
+export async function getMusics(search?: string): Promise<Music[]> {
+  const query = search ? `?name=${encodeURIComponent(search.trim())}` : "";
+  return request<Music[]>(`/musics/${query}`);
+}
+
+export async function createMusic(data: MusicCreateInput): Promise<Music> {
+  return request<Music>("/musics/", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteMusic(id: number): Promise<void> {
+  return request<void>(`/musics/${id}`, {
+    method: "DELETE",
+  });
+}
+
+export async function getMusicReviews(musicId: number): Promise<Review[]> {
+  return request<Review[]>(`/musics/${musicId}/reviews`);
+}
+
+export async function createMusicReview(musicId: number, data: ReviewCreateInput): Promise<Review> {
+  return request<Review>(`/musics/${musicId}/reviews`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteMusicReview(musicId: number, reviewId: number): Promise<void> {
+  return request<void>(`/musics/${musicId}/reviews/${reviewId}`, {
     method: "DELETE",
   });
 }

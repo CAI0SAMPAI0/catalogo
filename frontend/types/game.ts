@@ -60,3 +60,5 @@ export type Serie = Game;
 export type SerieCreateInput = GameCreateInput;
 export type Book = Game;
 export type BookCreateInput = GameCreateInput;
+export type Music = Game;
+export type MusicCreateInput = GameCreateInput;

@@ -142,10 +142,6 @@ export default function GamesCatalog() {
               {games.length} {games.length === 1 ? "item" : "itens"}
             </span>
           </div>
-
-          <p className="text-sm text-slate-500">
-            Explore títulos, visualize plataformas, adicione fotos e avalie jogos em tempo real com Django Ninja.
-          </p>
         </div>
 
         <div className="flex items-center gap-2">

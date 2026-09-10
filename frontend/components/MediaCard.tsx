@@ -69,6 +69,7 @@ function MediaCard({
     }
   }
 
+  const [imgError, setImgError] = useState(false);
   const currentImage = allImages[currentImageIndex] || item.img;
 
   return (
@@ -77,14 +78,27 @@ function MediaCard({
       onClick={() => onOpenReviews?.(item)}
     >
       {/* Imagem de Capa ou Carrossel */}
-      <div className="relative h-44 overflow-hidden bg-slate-100">
-        <img
-          src={currentImage}
-          alt={item.title}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          loading="lazy"
-          decoding="async"
-        />
+      <div className="relative h-44 overflow-hidden bg-slate-800">
+        {!imgError ? (
+          <img
+            src={currentImage}
+            alt={item.title}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 p-4 text-center">
+            <span className="text-2xl mb-1 opacity-60">✨</span>
+            <span
+              className="text-xs font-bold text-white/90 line-clamp-2"
+              style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
+            >
+              {item.title}
+            </span>
+          </div>
+        )}
         <div className="img-overlay absolute inset-0 pointer-events-none" />
 
         {/* Setas do Carrossel (caso tenha mais de 1 foto) */}
@@ -121,9 +135,9 @@ function MediaCard({
 
         {/* Badges de Gênero / Categoria no topo esquerdo */}
         <div className="absolute top-2.5 left-2.5 flex gap-1 flex-wrap max-w-[70%] z-10 pointer-events-none">
-          {item.genre.slice(0, 2).map((g) => (
+          {Array.from(new Set(item.genre)).slice(0, 2).map((g, idx) => (
             <span
-              key={g}
+              key={`${g}-${idx}`}
               className="text-[11px] px-2 py-0.5 rounded-md font-bold shadow-xs bg-white/95 border border-slate-200/90"
               style={{
                 color: accentColor,

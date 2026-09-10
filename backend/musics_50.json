@@ -1,0 +1,1002 @@
+[
+  {
+    "id": 1,
+    "name": "Sinfonia Nº 5 em Dó Menor, Op. 67",
+    "artist": "Ludwig van Beethoven",
+    "type": "Clássica",
+    "genre": "Música Clássica",
+    "release_date": "1808-12-22",
+    "description": "O famoso motivo de quatro notas do 'destino batendo à porta' abre uma das peças orquestrais mais influentes e celebradas de toda a história da música ocidental.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/7d/bf/cd/7dbfcd2f-dffc-1a1f-6fe3-dd64efd33862/cover_10200208.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/7d/bf/cd/7dbfcd2f-dffc-1a1f-6fe3-dd64efd33862/cover_10200208.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Sonata ao Luar (Op. 27, Nº 2)",
+    "artist": "Ludwig van Beethoven",
+    "type": "Clássica",
+    "genre": "Música Clássica",
+    "release_date": "1801-01-01",
+    "description": "Obra para piano solo em Dó sustenido menor, com seu primeiro movimento Adagio sostenuto de melancolia poética e clímax furioso no Presto agitato.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music6/v4/40/db/4e/40db4e0d-f235-c91e-8196-86e510f9b907/96741103124.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music6/v4/40/db/4e/40db4e0d-f235-c91e-8196-86e510f9b907/96741103124.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Ode à Alegria (Sinfonia Nº 9)",
+    "artist": "Ludwig van Beethoven",
+    "type": "Clássica",
+    "genre": "Música Clássica",
+    "release_date": "1824-05-07",
+    "description": "Composta quando Beethoven já estava completamente surdo, o movimento coral final é um hino universal à fraternidade humana baseado no poema de Schiller.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/71/fb/c1/71fbc13c-0c2b-0e5b-4fe6-af26c491173d/196871169400.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/71/fb/c1/71fbc13c-0c2b-0e5b-4fe6-af26c491173d/196871169400.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Requiem em Ré Menor: Lacrimosa",
+    "artist": "Wolfgang Amadeus Mozart",
+    "type": "Clássica",
+    "genre": "Música Clássica",
+    "release_date": "1791-12-05",
+    "description": "Missa fúnebre inacabada no leito de morte de Mozart. A seção Lacrimosa possui um lirismo trágico e comovente imortalizado na cultura ocidental.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/13/eb/c1/13ebc16b-b5d4-f898-af41-04afcf29887a/06UMGIM59165.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/13/eb/c1/13ebc16b-b5d4-f898-af41-04afcf29887a/06UMGIM59165.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Eine kleine Nachtmusik (K. 525)",
+    "artist": "Wolfgang Amadeus Mozart",
+    "type": "Clássica",
+    "genre": "Música Clássica",
+    "release_date": "1787-08-10",
+    "description": "Serenata nº 13 para cordas em Sol maior. Uma das composições mais alegres, elegantes e instantaneamente reconhecíveis da era clássica vienense.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/ba/3e/80/ba3e804d-618f-c982-bd32-9a35d7028c93/06UMGIM62404.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/ba/3e/80/ba3e804d-618f-c982-bd32-9a35d7028c93/06UMGIM62404.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "As Quatro Estações: O Inverno (L'Inverno)",
+    "artist": "Antonio Vivaldi",
+    "type": "Clássica",
+    "genre": "Música Clássica",
+    "release_date": "1725-01-01",
+    "description": "Concerto barroco virtuoso em Fá menor que evoca com cordas cortantes o bater de dentes no gelo e a calmaria diante da lareira acolhedora.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/6f/a0/f0/6fa0f0fd-3cac-5d3f-5261-f1408cc02478/mzi.aziclqhe.tif/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/6f/a0/f0/6fa0f0fd-3cac-5d3f-5261-f1408cc02478/mzi.aziclqhe.tif/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "As Quatro Estações: A Primavera (La Primavera)",
+    "artist": "Antonio Vivaldi",
+    "type": "Clássica",
+    "genre": "Música Clássica",
+    "release_date": "1725-01-01",
+    "description": "O despontar triunfante da estação das flores, com trinados de violinos imitando o canto dos pássaros e o murmúrio dos riachos cristalinos.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/da/69/d7/da69d73b-3406-0984-6dd9-3313cce53bef/27c9b3d9-ec0f-43f1-8c16-dc396fb165c9.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/da/69/d7/da69d73b-3406-0984-6dd9-3313cce53bef/27c9b3d9-ec0f-43f1-8c16-dc396fb165c9.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Tocata e Fuga em Ré Menor (BWV 565)",
+    "artist": "Johann Sebastian Bach",
+    "type": "Clássica",
+    "genre": "Música Clássica",
+    "release_date": "1704-01-01",
+    "description": "A peça para órgão de tubos mais dramática e grandiosa da história da música sacra barroca, repleta de virtuosismo contrapontístico gótico.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music4/v4/11/93/d4/1193d485-3d96-66fc-e245-2d5ef71a7978/680569124159.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music4/v4/11/93/d4/1193d485-3d96-66fc-e245-2d5ef71a7978/680569124159.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Noturno em Mi Bemol Maior, Op. 9 Nº 2",
+    "artist": "Frédéric Chopin",
+    "type": "Clássica",
+    "genre": "Música Clássica",
+    "release_date": "1832-01-01",
+    "description": "A quintessência do romantismo pianístico de Chopin, caracterizada por melodia de beleza serena na mão direita e arpejos suaves na esquerda.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/fa/f7/54/faf7540e-3346-b548-55d8-8617ce707554/dj.hbpmuqwc.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/fa/f7/54/faf7540e-3346-b548-55d8-8617ce707554/dj.hbpmuqwc.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Clair de Lune (Suite Bergamasque)",
+    "artist": "Claude Debussy",
+    "type": "Clássica",
+    "genre": "Música Clássica",
+    "release_date": "1905-01-01",
+    "description": "A obra-prima do impressionismo musical francês inspirada na poesia de Paul Verlaine, pintando a luz prateada da lua com texturas harmônicas fluidas.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/48/23/29/482329e3-dbfa-09bd-1054-704dcfe92a67/190295704810.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/48/23/29/482329e3-dbfa-09bd-1054-704dcfe92a67/190295704810.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Bring Me to Life",
+    "artist": "Evanescence",
+    "type": "Rock",
+    "genre": "Rock Gótico / Metal Alternativo",
+    "release_date": "2003-03-04",
+    "description": "O mega hit que definiu uma geração, unindo piano clássico, riffs pesados de guitarra e o vocal potente e arrebatador de Amy Lee.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/10/4c/21/104c21e6-9ef0-4d3a-d1bd-d47167f121e5/00601501406300.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/10/4c/21/104c21e6-9ef0-4d3a-d1bd-d47167f121e5/00601501406300.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "My Immortal",
+    "artist": "Evanescence",
+    "type": "Rock",
+    "genre": "Rock Gótico",
+    "release_date": "2003-12-08",
+    "description": "Balada gótica profundamente emotiva construída em piano solo e orquestra de cordas, explorando a dor insuperável da perda.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/10/4c/21/104c21e6-9ef0-4d3a-d1bd-d47167f121e5/00601501406300.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/10/4c/21/104c21e6-9ef0-4d3a-d1bd-d47167f121e5/00601501406300.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Going Under",
+    "artist": "Evanescence",
+    "type": "Rock",
+    "genre": "Metal Alternativo",
+    "release_date": "2003-09-09",
+    "description": "Faixa de abertura visceral de Fallen, com baixo marcante, guitarras afinadas em drop e letra catártica sobre superar relacionamentos abusivos.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/10/4c/21/104c21e6-9ef0-4d3a-d1bd-d47167f121e5/00601501406300.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/10/4c/21/104c21e6-9ef0-4d3a-d1bd-d47167f121e5/00601501406300.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Lithium",
+    "artist": "Evanescence",
+    "type": "Rock",
+    "genre": "Rock Alternativo",
+    "release_date": "2006-10-03",
+    "description": "Composição introspectiva que utiliza o elemento lítio como metáfora para a anestesia emocional e o medo de voltar a sentir a tristeza.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/72/62/7e/72627ec6-772c-7229-6cc4-6ded693506fd/00601501412004.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/72/62/7e/72627ec6-772c-7229-6cc4-6ded693506fd/00601501412004.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Master of Puppets",
+    "artist": "Metallica",
+    "type": "Rock",
+    "genre": "Thrash Metal",
+    "release_date": "1986-03-03",
+    "description": "Considerada por críticos e fãs a obra-prima absoluta do thrash metal, uma suíte de 8 minutos com palhetadas rápidas em downpicking e solos impecáveis de Kirk Hammett.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/51/ba/0d/51ba0d6f-cf65-36ff-fb8b-6227da20f70f/Untitled_design.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/51/ba/0d/51ba0d6f-cf65-36ff-fb8b-6227da20f70f/Untitled_design.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Enter Sandman",
+    "artist": "Metallica",
+    "type": "Rock",
+    "genre": "Heavy Metal",
+    "release_date": "1991-07-29",
+    "description": "Um dos riffs de guitarra mais famosos e reverenciados da história do rock, abordando os pesadelos infantis com produção monstruosa de Bob Rock.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/9e/80/1b/9e801b06-67fa-0990-2d15-85480ad3cd46/850007452025.png/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/9e/80/1b/9e801b06-67fa-0990-2d15-85480ad3cd46/850007452025.png/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "One",
+    "artist": "Metallica",
+    "type": "Rock",
+    "genre": "Thrash Metal",
+    "release_date": "1988-08-25",
+    "description": "Inspirada no romance anti-guerra Johnny Vai à Guerra, transita de uma balada acústica melancólica para uma tempestade de bumbo duplo simulando metralhadoras.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/63/94/29/63942970-1720-4174-90c4-cb7ecd041417/56414.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/63/94/29/63942970-1720-4174-90c4-cb7ecd041417/56414.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Nothing Else Matters",
+    "artist": "Metallica",
+    "type": "Rock",
+    "genre": "Heavy Metal / Balada",
+    "release_date": "1992-04-20",
+    "description": "A mais famosa balada do metal mundial, escrita por James Hetfield em um quarto de hotel e ornamentada com arranjos sinfônicos de Michael Kamen.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/9e/80/1b/9e801b06-67fa-0990-2d15-85480ad3cd46/850007452025.png/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/9e/80/1b/9e801b06-67fa-0990-2d15-85480ad3cd46/850007452025.png/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Fade to Black",
+    "artist": "Metallica",
+    "type": "Rock",
+    "genre": "Thrash Metal",
+    "release_date": "1984-07-27",
+    "description": "A primeira 'power ballad' do Metallica, célebre pela alternância entre dedilhados acústicos sombrios e um solo final elétrico considerado um dos maiores da história.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/0f/7a/74/0f7a7472-92fa-e77d-384a-1e4304705e83/dj.jbiruenb.png/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/0f/7a/74/0f7a7472-92fa-e77d-384a-1e4304705e83/dj.jbiruenb.png/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Sweet Child O' Mine",
+    "artist": "Guns N' Roses",
+    "type": "Rock",
+    "genre": "Hard Rock",
+    "release_date": "1987-07-21",
+    "description": "Com o lendário riff introdutório circular de Slash em Ré bemol e o vocal estridente e apaixonado de Axl Rose, alcançou o 1º lugar na Billboard Hot 100.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a3/20/20/a3202033-3d92-2267-eab4-9a87ec1aa95e/710423.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a3/20/20/a3202033-3d92-2267-eab4-9a87ec1aa95e/710423.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 21,
+    "name": "November Rain",
+    "artist": "Guns N' Roses",
+    "type": "Rock",
+    "genre": "Hard Rock / Rock Sinfônico",
+    "release_date": "1991-09-17",
+    "description": "Um épico orquestral cinematográfico de quase nove minutos com piano dramático de Axl Rose e o icônico solo de Slash em frente à igreja no deserto.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/98/f5/92/98f59275-d3b1-a8f4-e16a-927d88769299/11488.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/98/f5/92/98f59275-d3b1-a8f4-e16a-927d88769299/11488.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Welcome to the Jungle",
+    "artist": "Guns N' Roses",
+    "type": "Rock",
+    "genre": "Hard Rock",
+    "release_date": "1987-10-03",
+    "description": "O hino cru e explosivo do submundo de Los Angeles, narrando com selvageria a chegada de jovens inocentes à 'selva' urbana da Califórnia.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a3/20/20/a3202033-3d92-2267-eab4-9a87ec1aa95e/710423.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a3/20/20/a3202033-3d92-2267-eab4-9a87ec1aa95e/710423.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Paradise City",
+    "artist": "Guns N' Roses",
+    "type": "Rock",
+    "genre": "Hard Rock",
+    "release_date": "1987-07-21",
+    "description": "Famosa pela transição do refrão festivo de estádio com apito para um dos finais mais acelerados e enérgicos do rock dos anos 80.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a3/20/20/a3202033-3d92-2267-eab4-9a87ec1aa95e/710423.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a3/20/20/a3202033-3d92-2267-eab4-9a87ec1aa95e/710423.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Back in Black",
+    "artist": "AC/DC",
+    "type": "Rock",
+    "genre": "Hard Rock",
+    "release_date": "1980-07-25",
+    "description": "Tributo triunfante ao falecido vocalista Bon Scott, apresentando Brian Johnson e o riff em Mi Maior de Angus Young que é sinônimo do puro rock n' roll.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/1e/14/58/1e145814-281a-58e0-3ab1-145f5d1af421/886443673441.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/1e/14/58/1e145814-281a-58e0-3ab1-145f5d1af421/886443673441.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Highway to Hell",
+    "artist": "AC/DC",
+    "type": "Rock",
+    "genre": "Hard Rock",
+    "release_date": "1979-07-27",
+    "description": "O último grande clássico gravado com Bon Scott, celebrando a vida implacável na estrada com ritmo sincopado e energia inabalável.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/b9/c8/ef/b9c8ef42-bbc9-64df-11f8-717571f6730f/886443673458.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/b9/c8/ef/b9c8ef42-bbc9-64df-11f8-717571f6730f/886443673458.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Thunderstruck",
+    "artist": "AC/DC",
+    "type": "Rock",
+    "genre": "Hard Rock",
+    "release_date": "1990-09-10",
+    "description": "Abertura com o inconfundível dedilhado com ligaduras (hammer-ons e pull-offs) executado por Angus Young em apenas uma corda da guitarra.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Features114/v4/fc/c2/f8/fcc2f850-1d81-7440-c0a0-de7fcef1e911/dj.rrgizfic.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Features114/v4/fc/c2/f8/fcc2f850-1d81-7440-c0a0-de7fcef1e911/dj.rrgizfic.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Hells Bells",
+    "artist": "AC/DC",
+    "type": "Rock",
+    "genre": "Hard Rock",
+    "release_date": "1980-10-31",
+    "description": "As quatro badaladas do sino fúnebre de bronze de duas toneladas dão início a uma das faixas mais soturnas e pesadas do rock clássico.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/1e/14/58/1e145814-281a-58e0-3ab1-145f5d1af421/886443673441.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/1e/14/58/1e145814-281a-58e0-3ab1-145f5d1af421/886443673441.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 28,
+    "name": "In the End",
+    "artist": "Linkin Park",
+    "type": "Rock",
+    "genre": "Nu Metal / Rock Alternativo",
+    "release_date": "2000-10-24",
+    "description": "A simbiose perfeita entre as rimas de Mike Shinoda e o refrão cortante e catártico de Chester Bennington, ultrapassando bilhões de reproduções.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/53/a7/7f/53a77fab-c54c-a57b-8130-248fc12d0c80/093624948995.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/53/a7/7f/53a77fab-c54c-a57b-8130-248fc12d0c80/093624948995.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Numb",
+    "artist": "Linkin Park",
+    "type": "Rock",
+    "genre": "Nu Metal / Rock Alternativo",
+    "release_date": "2003-03-25",
+    "description": "O hino geracional sobre a pressão das expectativas e o anseio por identidade própria, sustentado por teclados melancólicos e guitarras pesadas.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/dd/7d/72/dd7d7259-d27f-5b3e-ce64-9e304d2cb40f/dj.rxzrauer.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/dd/7d/72/dd7d7259-d27f-5b3e-ce64-9e304d2cb40f/dj.rxzrauer.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Faint",
+    "artist": "Linkin Park",
+    "type": "Rock",
+    "genre": "Nu Metal",
+    "release_date": "2003-03-25",
+    "description": "Velocidade furiosa, arranjo de cordas clássicas em alta rotação e o grito gutural 'I won't be ignored!' de Chester Bennington.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/dd/7d/72/dd7d7259-d27f-5b3e-ce64-9e304d2cb40f/dj.rxzrauer.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/dd/7d/72/dd7d7259-d27f-5b3e-ce64-9e304d2cb40f/dj.rxzrauer.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Águas de Março",
+    "artist": "Tom Jobim & Elis Regina",
+    "type": "MPB",
+    "genre": "MPB / Bossa Nova",
+    "release_date": "1974-05-01",
+    "description": "Aclamada pela revista Rolling Stone como a maior música brasileira de todos os tempos, uma conversa poética e risonha entre dois gigantes da nossa cultura.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/37/a4/a3/37a4a399-acc4-8ffd-902f-e3f5d3981fa6/06UMGIM14690.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/37/a4/a3/37a4a399-acc4-8ffd-902f-e3f5d3981fa6/06UMGIM14690.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Construção",
+    "artist": "Chico Buarque",
+    "type": "MPB",
+    "genre": "MPB",
+    "release_date": "1971-01-01",
+    "description": "Monumento da engenharia lírica da língua portuguesa, onde todos os versos dodecassílabos terminam com palavras proparoxítonas, narrando a tragédia de um operário.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/c5/de/62/c5de62c4-50a9-bc0a-1cb3-3836e7e0eb0e/06UMGIM31536.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/c5/de/62/c5de62c4-50a9-bc0a-1cb3-3836e7e0eb0e/06UMGIM31536.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 33,
+    "name": "O Mundo É um Moinho",
+    "artist": "Cartola",
+    "type": "MPB",
+    "genre": "Samba / MPB",
+    "release_date": "1976-01-01",
+    "description": "Conselho paternal de extrema sensibilidade e dor poética composto por Cartola para sua filha adotiva Creusa na alvorada da juventude.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/3a/2c/02/3a2c021a-40a2-8aae-96cf-2a2a530ec00a/14UMGIM11062.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/3a/2c/02/3a2c021a-40a2-8aae-96cf-2a2a530ec00a/14UMGIM11062.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 34,
+    "name": "As Rosas Não Falam",
+    "artist": "Cartola",
+    "type": "MPB",
+    "genre": "Samba / MPB",
+    "release_date": "1976-01-01",
+    "description": "'Bate outra vez com esperança o meu coração'. Poesia lírica de Mangueira gravada na voz suave e melancólica do Mestre Cartola.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/3a/2c/02/3a2c021a-40a2-8aae-96cf-2a2a530ec00a/14UMGIM11062.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/3a/2c/02/3a2c021a-40a2-8aae-96cf-2a2a530ec00a/14UMGIM11062.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Como Nossos Pais",
+    "artist": "Elis Regina",
+    "type": "MPB",
+    "genre": "MPB",
+    "release_date": "1976-01-01",
+    "description": "Composta por Belchior e imortalizada na interpretação vulcânica de Elis Regina, retrata o choque geracional e as dores da ditadura militar no Brasil.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music4/v4/25/01/b5/2501b51a-7f97-be24-fd8b-378fb778cf47/dj.akoxfsdt.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music4/v4/25/01/b5/2501b51a-7f97-be24-fd8b-378fb778cf47/dj.akoxfsdt.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Apenas um Rapaz Latino-Americano",
+    "artist": "Belchior",
+    "type": "MPB",
+    "genre": "MPB / Folk Brasileiro",
+    "release_date": "1976-01-01",
+    "description": "O manifesto cortante de Belchior contra o idealismo dos anos 60, cantando a realidade crua de quem veio do interior 'sem dinheiro no banco e sem parentes importantes'.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music22/v4/45/78/e4/4578e4e9-865b-5619-e268-8e841ade8470/mzm.elplbdcx.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music22/v4/45/78/e4/4578e4e9-865b-5619-e268-8e841ade8470/mzm.elplbdcx.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Não Quero Dinheiro (Só Quero Amar)",
+    "artist": "Tim Maia",
+    "type": "MPB",
+    "genre": "Soul / Funk Soul / MPB",
+    "release_date": "1971-01-01",
+    "description": "Pura euforia dançante com metais brilhantes do Síndico do Brasil, celebrando o amor acima de qualquer ambição material.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/75/a7/61/75a761e8-b3da-3e8a-d0f8-c25b56fd8d9a/8445162219723.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/75/a7/61/75a761e8-b3da-3e8a-d0f8-c25b56fd8d9a/8445162219723.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Gostava Tanto de Você",
+    "artist": "Tim Maia",
+    "type": "MPB",
+    "genre": "Soul Brasileiro / MPB",
+    "release_date": "1973-01-01",
+    "description": "Composta por Edson Trindade, a interpretação cheia de 'soul' e saudade de Tim Maia tornou esta faixa uma das baladas mais queridas da música nacional.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/1c/98/f8/1c98f8b9-1328-6f1d-5fe8-e292ba5bf3aa/08UMGIM02543.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/1c/98/f8/1c98f8b9-1328-6f1d-5fe8-e292ba5bf3aa/08UMGIM02543.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Travessia",
+    "artist": "Milton Nascimento",
+    "type": "MPB",
+    "genre": "MPB",
+    "release_date": "1967-01-01",
+    "description": "Apresentou a voz celestial e inconfundível de Bituca ao mundo, com harmonia monumental de Fernando Brant sobre superação e renascimento.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music1/v4/27/0c/8d/270c8d86-2df5-5246-cd78-c2820772755a/dj.qcqtrmps.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music1/v4/27/0c/8d/270c8d86-2df5-5246-cd78-c2820772755a/dj.qcqtrmps.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Clube da Esquina Nº 2",
+    "artist": "Milton Nascimento & Lô Borges",
+    "type": "MPB",
+    "genre": "MPB / Clube da Esquina",
+    "release_date": "1972-01-01",
+    "description": "A sublime fusão mineira de Beatles, bossa nova e música barroca das Gerais, evocando amizade, montanhas e sonhos de liberdade.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/5a/6b/f6/5a6bf61f-835f-3d5c-9d5c-149f7bd5a721/13UABIM51333.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/5a/6b/f6/5a6bf61f-835f-3d5c-9d5c-149f7bd5a721/13UABIM51333.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Alegria, Alegria",
+    "artist": "Caetano Veloso",
+    "type": "MPB",
+    "genre": "Tropicália / MPB",
+    "release_date": "1968-01-01",
+    "description": "O marco zero da Tropicália no III Festival de Música Popular Brasileira, misturando guitarras elétricas dos Beat Boys com poesia pop urbana.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/ae/2f/0f/ae2f0fd0-6b64-7e2a-ca02-d876f3bb8c8d/00602537449491.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/ae/2f/0f/ae2f0fd0-6b64-7e2a-ca02-d876f3bb8c8d/00602537449491.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Você É Linda",
+    "artist": "Caetano Veloso",
+    "type": "MPB",
+    "genre": "MPB",
+    "release_date": "1982-01-01",
+    "description": "Declaração de amor lírica da MPB inspirada em Salvador, com versos que exaltam a beleza luminosa e a poesia do mar da Bahia.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/27/12/b2/2712b23f-21d2-7e27-6896-8af0d216509d/00602537065974.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/27/12/b2/2712b23f-21d2-7e27-6896-8af0d216509d/00602537065974.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Aquele Abraço",
+    "artist": "Gilberto Gil",
+    "type": "MPB",
+    "genre": "Samba / MPB",
+    "release_date": "1969-01-01",
+    "description": "Composta pouco antes de Gil partir para o exílio em Londres, um hino ensolarado de despedida e amor à cidade do Rio de Janeiro.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/5c/46/56/5c4656eb-f642-32b8-33aa-7038a2c6c0e1/8445162920551_Cover.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/5c/46/56/5c4656eb-f642-32b8-33aa-7038a2c6c0e1/8445162920551_Cover.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Não Chore Mais (No Woman, No Cry)",
+    "artist": "Gilberto Gil",
+    "type": "MPB",
+    "genre": "Reggae / MPB",
+    "release_date": "1979-01-01",
+    "description": "Versão magistral do clássico de Bob Marley que introduziu o reggae em escala massiva no Brasil, simbolizando o clamor pela Anistia.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/33/80/e4338024-ff99-06fe-0304-2b20bdd6f7fd/199350077951.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/33/80/e4338024-ff99-06fe-0304-2b20bdd6f7fd/199350077951.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Mas que Nada",
+    "artist": "Jorge Ben Jor",
+    "type": "MPB",
+    "genre": "Samba Rock / MPB",
+    "release_date": "1963-01-01",
+    "description": "A batida pioneira de violão sincopado de Jorge Ben que fundou o samba-rock e rodou o planeta, sendo gravada por Sergio Mendes e Black Eyed Peas.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/94/46/58/94465854-cafb-ec16-ce23-afbdae80d47c/06UMGIM46403.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/94/46/58/94465854-cafb-ec16-ce23-afbdae80d47c/06UMGIM46403.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Taj Mahal",
+    "artist": "Jorge Ben Jor",
+    "type": "MPB",
+    "genre": "Samba Rock",
+    "release_date": "1972-01-01",
+    "description": "Groove hipnótico e história de amor do imperador Shah Jahan que inspirou o célebre monumento indiano e tornou-se patrimônio das festas brasileiras.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/fe/8f/08/fe8f0815-5573-0fd9-bc5d-3d6a69841d97/07UMGIM12579.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/fe/8f/08/fe8f0815-5573-0fd9-bc5d-3d6a69841d97/07UMGIM12579.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Oceano",
+    "artist": "Djavan",
+    "type": "MPB",
+    "genre": "MPB",
+    "release_date": "1989-01-01",
+    "description": "Arranjo sofisticado com solo de violão flamenco de Paco de Lucía e melodia arrebatadora que se tornou uma das canções mais cantadas da MPB.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/d7/28/14/d72814bd-11f4-9ef5-9354-f758f95caa74/886443250871.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/d7/28/14/d72814bd-11f4-9ef5-9354-f758f95caa74/886443250871.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Sina",
+    "artist": "Djavan",
+    "type": "MPB",
+    "genre": "MPB / Pop",
+    "release_date": "1982-01-01",
+    "description": "'O luar, estrela do mar... Você me desinibe'. Com o famoso verso 'caetanear o que há de bom', uma celebração de ritmo e poesia sincopada.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/a1/7e/31/a17e31a0-1969-6d81-4e6c-6eb4e9492d73/5099747630224.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/a1/7e/31/a17e31a0-1969-6d81-4e6c-6eb4e9492d73/5099747630224.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Anunciação",
+    "artist": "Alceu Valença",
+    "type": "MPB",
+    "genre": "Frevo / Forró / MPB",
+    "release_date": "1983-01-01",
+    "description": "'A voz do anjo sussurrou no meu ouvido...'. Hino nordestino com flautas mágicas e ritmo vibrante que une multidões de todas as gerações.",
+    "cover_url": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=800&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=800&fit=crop"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Metamorfose Ambulante",
+    "artist": "Raul Seixas",
+    "type": "Rock / MPB",
+    "genre": "Rock Brasileiro / MPB",
+    "release_date": "1973-05-14",
+    "description": "O manifesto libertário do Maluco Beleza contra o conformismo social: 'Eu prefiro ser essa metamorfose ambulante do que ter aquela velha opinião formada sobre tudo'.",
+    "cover_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/00/37/0d/00370d59-7a40-4657-4c34-1c30929e8cb5/06UMGIM38143.rgb.jpg/600x600bb.jpg",
+    "images": [
+      "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/00/37/0d/00370d59-7a40-4657-4c34-1c30929e8cb5/06UMGIM38143.rgb.jpg/600x600bb.jpg"
+    ],
+    "platforms": [
+      "Spotify",
+      "Apple Music",
+      "YouTube Music",
+      "Deezer",
+      "Vinil"
+    ]
+  }
+]

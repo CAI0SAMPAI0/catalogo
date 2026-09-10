@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Book, Genre, Platform, Review
+from .models import Music, Genre, Platform, Review
 
 
 class ReviewInline(admin.TabularInline):
@@ -10,8 +10,8 @@ class ReviewInline(admin.TabularInline):
     readonly_fields = ("created_at",)
 
 
-@admin.register(Book)
-class BookAdmin(admin.ModelAdmin):
+@admin.register(Music)
+class MusicAdmin(admin.ModelAdmin):
     list_display = ("id", "cover_preview", "name", "type", "genre", "release_date")
     list_display_links = ("id", "name")
     list_filter = ("type", "genre", "platforms")
@@ -62,6 +62,6 @@ class PlatformAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ("id", "book", "author", "rating", "created_at")
+    list_display = ("id", "music", "author", "rating", "created_at")
     list_filter = ("rating", "created_at")
-    search_fields = ("author", "comment", "book__name")
+    search_fields = ("author", "comment", "music__name")

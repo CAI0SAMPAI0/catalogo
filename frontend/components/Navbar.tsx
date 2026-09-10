@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GameIcon, FilmIcon, TvIcon, BookIcon, HomeIcon } from "./MediaIcons";
+import { GameIcon, FilmIcon, TvIcon, BookIcon, HomeIcon, MusicIcon } from "./MediaIcons";
 import { checkApiHealth } from "@/lib/api";
 import { ExternalLink } from "lucide-react";
 
@@ -31,6 +31,7 @@ export default function Navbar() {
     { label: "Filmes", href: "/movies", icon: <FilmIcon className="w-4 h-4" />, color: "#e11d48" },
     { label: "Séries", href: "/series", icon: <TvIcon className="w-4 h-4" />, color: "#7c3aed" },
     { label: "Livros", href: "/books", icon: <BookIcon className="w-4 h-4" />, color: "#d97706" },
+    { label: "Músicas", href: "/musics", icon: <MusicIcon className="w-4 h-4" />, color: "#22c55e" },
   ];
 
   return (

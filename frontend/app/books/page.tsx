@@ -135,9 +135,6 @@ export default function BooksPage() {
               {books.length} {books.length === 1 ? "livro" : "livros"}
             </span>
           </div>
-          <p className="text-sm text-slate-500">
-            Livros sincronizados diretamente com o banco de dados Neon PostgreSQL.
-          </p>
         </div>
 
         <div className="flex items-center gap-2">
