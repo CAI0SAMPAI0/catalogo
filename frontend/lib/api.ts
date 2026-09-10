@@ -14,14 +14,29 @@ import {
   MusicCreateInput,
 } from "@/types/game";
 
-const rawBase = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
-const API_BASE_URL = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
+function getBaseUrl(): string {
+  // No navegador: usa /api relativo, que é roteado com segurança pelo proxy/rewrites do Next.js.
+  // Isso protege o backend, dispensa prefixo NEXT_PUBLIC_ e elimina problemas de CORS.
+  if (typeof window !== "undefined") {
+    return "/api";
+  }
+
+  // No servidor (SSR / build time): usa a variável privada de ambiente
+  const raw =
+    process.env.API_URL ||
+    process.env.BACKEND_URL ||
+    "http://127.0.0.1:8000/api";
+
+  const clean = raw.replace(/\/$/, "");
+  return clean.endsWith("/api") ? clean : `${clean}/api`;
+}
 
 /**
  * Utilitário central de requisições com tratamento de erro padronizado.
  */
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const baseUrl = getBaseUrl();
+  const url = `${baseUrl}${endpoint}`;
   const headers = {
     "Content-Type": "application/json",
     ...options.headers,
@@ -270,7 +285,7 @@ export async function checkApiHealth(): Promise<boolean> {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 3000);
-    const res = await fetch(`${API_BASE_URL}/games/`, {
+    const res = await fetch(`${getBaseUrl()}/games/`, {
       method: "GET",
       signal: controller.signal,
     });
