@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from "react";
-import { MusicIcon } from "@/components/MediaIcons";
-import MediaCard, { MediaCardItem } from "@/components/MediaCard";
-import ReviewModal from "@/components/ReviewModal";
+import FilterDropdown from "@/components/FilterDropdown";
 import GameModal from "@/components/GameModal";
 import InfiniteScrollSentinel from "@/components/InfiniteScrollSentinel";
+import MediaCard, { MediaCardItem } from "@/components/MediaCard";
+import { MusicIcon } from "@/components/MediaIcons";
+import ReviewModal from "@/components/ReviewModal";
+import { createMusic, deleteMusic, getMusics } from "@/lib/api";
 import { Music, MusicCreateInput } from "@/types/game";
-import { getMusics, createMusic, deleteMusic } from "@/lib/api";
-import FilterDropdown from "@/components/FilterDropdown";
-import { Plus, RefreshCw, AlertTriangle, Search } from "lucide-react";
+import { AlertTriangle, Plus, RefreshCw, Search } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const PAGE_SIZE = 9;
 
@@ -44,7 +44,23 @@ export default function MusicsPage() {
   }
 
   useEffect(() => {
-    loadMusics();
+    let ignore = false;
+    getMusics()
+      .then((data) => {
+        if (!ignore) {
+          setMusics(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err: unknown) => {
+        if (!ignore) {
+          setError(err instanceof Error ? err.message : "Erro ao carregar músicas do banco Neon.");
+          setIsLoading(false);
+        }
+      });
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const genres = useMemo(() => {
@@ -83,6 +99,16 @@ export default function MusicsPage() {
 
   const mainGenres = ["Todos", "Rock", "Música Clássica", "MPB"];
 
+  function handleSearchChange(val: string) {
+    setSearch(val);
+    setVisibleCount(PAGE_SIZE);
+  }
+
+  function handleGenreChange(genre: string) {
+    setActiveGenre(genre);
+    setVisibleCount(PAGE_SIZE);
+  }
+
   const filtered = useMemo(() => {
     return mediaItems.filter((item) => {
       const matchSearch =
@@ -94,10 +120,6 @@ export default function MusicsPage() {
       return matchSearch && matchGenre;
     });
   }, [mediaItems, search, activeGenre]);
-
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [search, activeGenre]);
 
   const visibleItems = useMemo(() => {
     return filtered.slice(0, visibleCount);
@@ -200,7 +222,7 @@ export default function MusicsPage() {
           <input
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Buscar músicas por título, artista, gênero ou sinopse..."
             className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm bg-white border border-slate-200 text-slate-900 placeholder-slate-400 shadow-xs focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600/10 transition-all"
           />
@@ -214,12 +236,11 @@ export default function MusicsPage() {
               return (
                 <button
                   key={g}
-                  onClick={() => setActiveGenre(g)}
-                  className={`text-xs px-3 py-2 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap ${
-                    isActive
+                  onClick={() => handleGenreChange(g)}
+                  className={`text-xs px-3 py-2 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap ${isActive
                       ? "bg-emerald-600 text-white shadow-xs"
                       : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
-                  }`}
+                    }`}
                   style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
                 >
                   {g}
@@ -231,7 +252,7 @@ export default function MusicsPage() {
           <FilterDropdown
             genres={genres}
             activeGenre={activeGenre}
-            onSelectGenre={setActiveGenre}
+            onSelectGenre={handleGenreChange}
             accentColor={accentColor}
             counts={genreCounts}
             label="Gênero"

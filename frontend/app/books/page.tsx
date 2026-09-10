@@ -44,7 +44,23 @@ export default function BooksPage() {
   }
 
   useEffect(() => {
-    loadBooks();
+    let ignore = false;
+    getBooks()
+      .then((data) => {
+        if (!ignore) {
+          setBooks(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err: unknown) => {
+        if (!ignore) {
+          setError(err instanceof Error ? err.message : "Erro ao carregar livros do Neon PostgreSQL.");
+          setIsLoading(false);
+        }
+      });
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const genres = useMemo(() => {
@@ -83,6 +99,16 @@ export default function BooksPage() {
 
   const mainGenres = ["Todos", "Fantasia", "Sci-Fi", "Cyberpunk"];
 
+  function handleSearchChange(val: string) {
+    setSearch(val);
+    setVisibleCount(PAGE_SIZE);
+  }
+
+  function handleGenreChange(genre: string) {
+    setActiveGenre(genre);
+    setVisibleCount(PAGE_SIZE);
+  }
+
   const filtered = useMemo(() => {
     return mediaItems.filter((item) => {
       const matchSearch =
@@ -94,10 +120,6 @@ export default function BooksPage() {
       return matchSearch && matchGenre;
     });
   }, [mediaItems, search, activeGenre]);
-
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [search, activeGenre]);
 
   const visibleItems = useMemo(() => {
     return filtered.slice(0, visibleCount);
@@ -197,7 +219,7 @@ export default function BooksPage() {
           <input
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Buscar livros por título, gênero ou sinopse..."
             className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm bg-white border border-slate-200 text-slate-900 placeholder-slate-400 shadow-xs focus:border-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-600/10 transition-all"
           />
@@ -211,10 +233,10 @@ export default function BooksPage() {
               return (
                 <button
                   key={g}
-                  onClick={() => setActiveGenre(g)}
+                  onClick={() => handleGenreChange(g)}
                   className={`text-xs px-3 py-2 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap ${isActive
-                      ? "bg-amber-600 text-white shadow-xs"
-                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                    ? "bg-amber-600 text-white shadow-xs"
+                    : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
                     }`}
                   style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
                 >
@@ -227,7 +249,7 @@ export default function BooksPage() {
           <FilterDropdown
             genres={genres}
             activeGenre={activeGenre}
-            onSelectGenre={setActiveGenre}
+            onSelectGenre={handleGenreChange}
             accentColor={accentColor}
             counts={genreCounts}
             label="Gênero"

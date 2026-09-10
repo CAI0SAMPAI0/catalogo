@@ -7,6 +7,7 @@ import MediaCard, { MediaCardItem } from "@/components/MediaCard";
 import { FilmIcon } from "@/components/MediaIcons";
 import ReviewModal from "@/components/ReviewModal";
 import { createMovie, deleteMovie, getMovies } from "@/lib/api";
+import { getMovieCover } from "@/lib/catalogData";
 import { GameCreateInput, Movie } from "@/types/game";
 import { AlertTriangle, Plus, RefreshCw, Search } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -44,7 +45,23 @@ export default function MoviesPage() {
   }
 
   useEffect(() => {
-    loadMovies();
+    let ignore = false;
+    getMovies()
+      .then((data) => {
+        if (!ignore) {
+          setMovies(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err: unknown) => {
+        if (!ignore) {
+          setError(err instanceof Error ? err.message : "Erro ao carregar filmes do Neon PostgreSQL.");
+          setIsLoading(false);
+        }
+      });
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const genres = useMemo(() => {
@@ -65,7 +82,7 @@ export default function MoviesPage() {
       year: m.release_date ? parseInt(m.release_date.split("-")[0]) : undefined,
       rating: m.average_rating,
       reviews: m.review_count,
-      img: m.cover_url || "https://images.unsplash.com/photo-1650475958723-e8d850c26f67?w=800&h=500&fit=crop",
+      img: m.cover_url || getMovieCover(m.name, m.type),
       images: m.images && m.images.length > 0 ? m.images : undefined,
       platforms: m.platforms,
     }));
@@ -83,6 +100,16 @@ export default function MoviesPage() {
 
   const mainGenres = ["Todos", "Sci-Fi", "Drama", "Ação"];
 
+  function handleSearchChange(val: string) {
+    setSearch(val);
+    setVisibleCount(PAGE_SIZE);
+  }
+
+  function handleGenreChange(genre: string) {
+    setActiveGenre(genre);
+    setVisibleCount(PAGE_SIZE);
+  }
+
   const filtered = useMemo(() => {
     return mediaItems.filter((item) => {
       const matchSearch =
@@ -94,10 +121,6 @@ export default function MoviesPage() {
       return matchSearch && matchGenre;
     });
   }, [mediaItems, search, activeGenre]);
-
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [search, activeGenre]);
 
   const visibleItems = useMemo(() => {
     return filtered.slice(0, visibleCount);
@@ -197,7 +220,7 @@ export default function MoviesPage() {
           <input
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Buscar filmes por nome, gênero ou sinopse..."
             className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm bg-white border border-slate-200 text-slate-900 placeholder-slate-400 shadow-xs focus:border-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-600/10 transition-all"
           />
@@ -211,10 +234,10 @@ export default function MoviesPage() {
               return (
                 <button
                   key={g}
-                  onClick={() => setActiveGenre(g)}
+                  onClick={() => handleGenreChange(g)}
                   className={`text-xs px-3 py-2 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap ${isActive
-                      ? "bg-rose-600 text-white shadow-xs"
-                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                    ? "bg-rose-600 text-white shadow-xs"
+                    : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
                     }`}
                   style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
                 >
@@ -227,7 +250,7 @@ export default function MoviesPage() {
           <FilterDropdown
             genres={genres}
             activeGenre={activeGenre}
-            onSelectGenre={setActiveGenre}
+            onSelectGenre={handleGenreChange}
             accentColor={accentColor}
             counts={genreCounts}
             label="Gênero"

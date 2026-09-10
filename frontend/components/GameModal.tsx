@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { X, Plus, Loader2, AlertCircle, Sparkles, Image as ImageIcon, Trash2, Globe } from "lucide-react";
-import { GameCreateInput } from "@/types/game";
 import { searchCoverFromWeb } from "@/lib/coverSearch";
+import { normalizeImageUrl } from "@/lib/imageUtils";
+import { GameCreateInput } from "@/types/game";
+import { AlertCircle, Globe, Image as ImageIcon, Loader2, Plus, Sparkles, Trash2, X } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface GameModalProps {
   isOpen: boolean;
@@ -36,7 +38,6 @@ export default function GameModal({ isOpen, onClose, onSubmit }: GameModalProps)
   // Busca de capa com debounce quando o usuário digita o nome
   useEffect(() => {
     if (!name.trim() || coverUrl) {
-      setAutoCoverPreview(null);
       return;
     }
 
@@ -72,7 +73,7 @@ export default function GameModal({ isOpen, onClose, onSubmit }: GameModalProps)
   }
 
   function addExtraImage() {
-    const trimmed = newExtraImageUrl.trim();
+    const trimmed = normalizeImageUrl(newExtraImageUrl.trim());
     if (trimmed && !extraImages.includes(trimmed)) {
       setExtraImages((prev) => [...prev, trimmed]);
       setNewExtraImageUrl("");
@@ -88,9 +89,11 @@ export default function GameModal({ isOpen, onClose, onSubmit }: GameModalProps)
     try {
       setIsSearchingCover(true);
       const result = await searchCoverFromWeb(name, type);
-      setCoverUrl(result.coverUrl);
+      setCoverUrl(normalizeImageUrl(result.coverUrl));
       if (result.additionalImages && result.additionalImages.length > 0) {
-        setExtraImages((prev) => Array.from(new Set([...prev, ...result.additionalImages!])));
+        setExtraImages((prev) =>
+          Array.from(new Set([...prev, ...result.additionalImages!.map(normalizeImageUrl)]))
+        );
       }
     } catch {
       // Falha silenciosa
@@ -124,16 +127,18 @@ export default function GameModal({ isOpen, onClose, onSubmit }: GameModalProps)
       setIsLoading(true);
 
       // Se o usuário não colocou capa, busca na web automaticamente em segundo plano!
-      let finalCover = coverUrl.trim();
-      let finalImages = [...extraImages];
+      let finalCover = normalizeImageUrl(coverUrl.trim());
+      let finalImages = extraImages.map(normalizeImageUrl).filter(Boolean);
 
       if (!finalCover) {
         try {
           const autoFound = await searchCoverFromWeb(name, type);
           if (autoFound.coverUrl) {
-            finalCover = autoFound.coverUrl;
+            finalCover = normalizeImageUrl(autoFound.coverUrl);
             if (autoFound.additionalImages) {
-              finalImages = Array.from(new Set([...finalImages, ...autoFound.additionalImages]));
+              finalImages = Array.from(
+                new Set([...finalImages, ...autoFound.additionalImages.map(normalizeImageUrl)])
+              ).filter(Boolean);
             }
           }
         } catch {
@@ -174,7 +179,7 @@ export default function GameModal({ isOpen, onClose, onSubmit }: GameModalProps)
     }
   }
 
-  const activeCoverDisplay = coverUrl || autoCoverPreview;
+  const activeCoverDisplay = coverUrl || (name.trim() ? autoCoverPreview : null);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
@@ -283,10 +288,13 @@ export default function GameModal({ isOpen, onClose, onSubmit }: GameModalProps)
               {activeCoverDisplay ? (
                 <div className="flex items-center gap-3 pt-1">
                   <div className="relative h-16 w-28 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shadow-xs shrink-0">
-                    <img
-                      src={activeCoverDisplay}
+                    <Image
+                      src={normalizeImageUrl(activeCoverDisplay)}
                       alt="Prévia da capa"
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="112px"
+                      className="object-cover"
+                      unoptimized
                     />
                   </div>
                   <div className="text-xs text-slate-600">
@@ -350,7 +358,14 @@ export default function GameModal({ isOpen, onClose, onSubmit }: GameModalProps)
                       key={idx}
                       className="group relative h-14 w-20 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shrink-0"
                     >
-                      <img src={img} alt={`Foto ${idx + 1}`} className="w-full h-full object-cover" />
+                      <Image
+                        src={normalizeImageUrl(img)}
+                        alt={`Foto ${idx + 1}`}
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                        unoptimized
+                      />
                       <button
                         type="button"
                         onClick={() => removeExtraImage(idx)}
@@ -433,11 +448,10 @@ export default function GameModal({ isOpen, onClose, onSubmit }: GameModalProps)
                       key={plat}
                       type="button"
                       onClick={() => togglePlatform(plat)}
-                      className={`rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${
-                        isSelected
-                          ? "bg-blue-600 text-white shadow-xs"
-                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                      }`}
+                      className={`rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${isSelected
+                        ? "bg-blue-600 text-white shadow-xs"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                        }`}
                     >
                       {plat}
                     </button>

@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
-import { Orbitron, Rajdhani, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import ScrollToTop from "@/components/ScrollToTop";
+import type { Metadata } from "next";
+import { Inter, Orbitron, Rajdhani } from "next/font/google";
 import "./globals.css";
 
 const orbitron = Orbitron({
@@ -38,11 +39,13 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
+      data-scroll-behavior="smooth"
       className={`${orbitron.variable} ${rajdhani.variable} ${inter.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-blue-600 selection:text-white">
         <Navbar />
         <div className="flex-1">{children}</div>
+        <ScrollToTop />
         <footer className="mt-12 py-6 border-t border-slate-200 bg-white">
           <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
             <span

@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { UNSPLASH, getGameCover } from "@/lib/catalogData";
-import { GameIcon, FilmIcon, TvIcon, BookIcon, MusicIcon } from "@/components/MediaIcons";
 import MediaCard, { MediaCardItem } from "@/components/MediaCard";
+import { BookIcon, FilmIcon, GameIcon, MusicIcon, TvIcon } from "@/components/MediaIcons";
 import ReviewModal, { MediaType, ReviewItemTarget } from "@/components/ReviewModal";
-import { getGames, getMovies, getSeries, getBooks, getMusics } from "@/lib/api";
-import { Game, Movie, Serie, Book, Music } from "@/types/game";
+import SmoothImage from "@/components/SmoothImage";
+import { getBooks, getGames, getMovies, getMusics, getSeries } from "@/lib/api";
+import { UNSPLASH, getGameCover } from "@/lib/catalogData";
+import { Book, Game, Movie, Music, Serie } from "@/types/game";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [games, setGames] = useState<Game[]>([]);
@@ -41,7 +42,26 @@ export default function Home() {
   }
 
   useEffect(() => {
-    loadAllData();
+    let ignore = false;
+    Promise.all([
+      getGames().catch(() => []),
+      getMovies().catch(() => []),
+      getSeries().catch(() => []),
+      getBooks().catch(() => []),
+      getMusics().catch(() => []),
+    ]).then(([g, m, s, b, mu]) => {
+      if (!ignore) {
+        setGames(g);
+        setMovies(m);
+        setSeries(s);
+        setBooks(b);
+        setMusics(mu);
+      }
+    });
+
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const categories = [
@@ -238,18 +258,19 @@ export default function Home() {
 
           <div className="flex-1 hidden md:block">
             <div className="relative">
-              <img
+              <SmoothImage
                 src={UNSPLASH.hero}
                 alt="Gamer em setup moderno"
                 className="w-full h-64 object-cover rounded-2xl border border-slate-200 shadow-xl"
-                loading="lazy"
+                containerClassName="rounded-2xl h-64 w-full"
+                priority
               />
               <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-xl overflow-hidden border-2 border-blue-600 shadow-lg">
-                <img
+                <SmoothImage
                   src={UNSPLASH.arcades}
                   alt="Arcades retrô"
                   className="w-full h-full object-cover"
-                  loading="lazy"
+                  containerClassName="w-full h-full"
                 />
               </div>
             </div>
@@ -307,11 +328,11 @@ export default function Home() {
               href={cat.href}
               className="card-hover relative rounded-2xl overflow-hidden h-44 text-left group block border border-slate-200 bg-white shadow-xs"
             >
-              <img
+              <SmoothImage
                 src={cat.img}
                 alt={cat.label}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                containerClassName="absolute inset-0 w-full h-full"
               />
               <div className="img-overlay absolute inset-0" />
               <div className="absolute inset-0 p-4 flex flex-col justify-end z-10">

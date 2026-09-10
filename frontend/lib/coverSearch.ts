@@ -41,8 +41,8 @@ export async function searchCoverFromWeb(
       if (data?.items && data.items.length > 0) {
         const bestMatch = data.items[0];
         const appId = bestMatch.id;
-        const headerImg = `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${appId}/header.jpg`;
-        const libraryImg = `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${appId}/library_600x900_2x.jpg`;
+        const headerImg = `https://shared.steamstatic.com/store_item_assets/steam/apps/${appId}/header.jpg`;
+        const libraryImg = `https://shared.steamstatic.com/store_item_assets/steam/apps/${appId}/library_600x900_2x.jpg`;
 
         return {
           coverUrl: headerImg,

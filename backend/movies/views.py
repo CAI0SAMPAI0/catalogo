@@ -4,6 +4,9 @@ from ninja import Field, Schema
 from pydantic import field_validator
 
 
+from core.image_utils import normalize_image_url
+
+
 class MovieCreateSchema(Schema):
     name: str = Field(..., min_length=1, max_length=200, description="Nome do filme")
     description: str | None = None
@@ -55,8 +58,15 @@ class MovieViewSchema(Schema):
         return [p.name for p in obj.platforms.all()]
 
     @staticmethod
+    def resolve_cover_url(obj):
+        return normalize_image_url(obj.cover_url)
+
+    @staticmethod
     def resolve_images(obj):
-        return obj.images if obj.images else []
+        if not obj.images:
+            return []
+        normalized = [normalize_image_url(img) for img in obj.images if img]
+        return [img for img in normalized if img]
 
     @staticmethod
     def resolve_average_rating(obj):

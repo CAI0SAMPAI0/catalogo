@@ -7,6 +7,7 @@ import MediaCard, { MediaCardItem } from "@/components/MediaCard";
 import { TvIcon } from "@/components/MediaIcons";
 import ReviewModal from "@/components/ReviewModal";
 import { createSerie, deleteSerie, getSeries } from "@/lib/api";
+import { getSerieCover } from "@/lib/catalogData";
 import { GameCreateInput, Serie } from "@/types/game";
 import { AlertTriangle, Plus, RefreshCw, Search } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -44,7 +45,23 @@ export default function SeriesPage() {
   }
 
   useEffect(() => {
-    loadSeries();
+    let ignore = false;
+    getSeries()
+      .then((data) => {
+        if (!ignore) {
+          setSeries(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err: unknown) => {
+        if (!ignore) {
+          setError(err instanceof Error ? err.message : "Erro ao carregar séries do Neon PostgreSQL.");
+          setIsLoading(false);
+        }
+      });
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const genres = useMemo(() => {
@@ -65,7 +82,7 @@ export default function SeriesPage() {
       year: s.release_date ? parseInt(s.release_date.split("-")[0]) : undefined,
       rating: s.average_rating,
       reviews: s.review_count,
-      img: s.cover_url || "https://images.unsplash.com/photo-1643208589889-0735ad7218f0?w=800&h=500&fit=crop",
+      img: s.cover_url || getSerieCover(s.name, s.type),
       images: s.images && s.images.length > 0 ? s.images : undefined,
       platforms: s.platforms,
     }));
@@ -83,6 +100,16 @@ export default function SeriesPage() {
 
   const mainGenres = ["Todos", "Drama", "Sci-Fi", "Animação"];
 
+  function handleSearchChange(val: string) {
+    setSearch(val);
+    setVisibleCount(PAGE_SIZE);
+  }
+
+  function handleGenreChange(genre: string) {
+    setActiveGenre(genre);
+    setVisibleCount(PAGE_SIZE);
+  }
+
   const filtered = useMemo(() => {
     return mediaItems.filter((item) => {
       const matchSearch =
@@ -94,10 +121,6 @@ export default function SeriesPage() {
       return matchSearch && matchGenre;
     });
   }, [mediaItems, search, activeGenre]);
-
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [search, activeGenre]);
 
   const visibleItems = useMemo(() => {
     return filtered.slice(0, visibleCount);
@@ -200,7 +223,7 @@ export default function SeriesPage() {
           <input
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Buscar séries por nome, gênero ou sinopse..."
             className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm bg-white border border-slate-200 text-slate-900 placeholder-slate-400 shadow-xs focus:border-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600/10 transition-all"
           />
@@ -214,10 +237,10 @@ export default function SeriesPage() {
               return (
                 <button
                   key={g}
-                  onClick={() => setActiveGenre(g)}
+                  onClick={() => handleGenreChange(g)}
                   className={`text-xs px-3 py-2 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap ${isActive
-                      ? "bg-purple-600 text-white shadow-xs"
-                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                    ? "bg-purple-600 text-white shadow-xs"
+                    : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
                     }`}
                   style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
                 >
@@ -230,7 +253,7 @@ export default function SeriesPage() {
           <FilterDropdown
             genres={genres}
             activeGenre={activeGenre}
-            onSelectGenre={setActiveGenre}
+            onSelectGenre={handleGenreChange}
             accentColor={accentColor}
             counts={genreCounts}
             label="Gênero"

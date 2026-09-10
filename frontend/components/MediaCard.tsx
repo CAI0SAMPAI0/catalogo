@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, memo } from "react";
+import { normalizeImageUrl } from "@/lib/imageUtils";
+import { ChevronLeft, ChevronRight, Layers, MessageSquare, Trash2 } from "lucide-react";
+import Image from "next/image";
+import { memo, useState } from "react";
 import StarRating from "./StarRating";
-import { MessageSquare, Trash2, Layers, ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface MediaCardItem {
   id: number;
@@ -34,20 +36,31 @@ function MediaCard({
   const [isDeleting, setIsDeleting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
-  // Lista de imagens para carrossel (capa principal + imagens extras)
+  // Lista de imagens para carrossel (capa principal + imagens extras) normalizadas
+  const normalizedCover = normalizeImageUrl(item.img);
   const allImages = [
-    item.img,
-    ...(item.images ? item.images.filter((img) => img && img !== item.img) : []),
-  ];
+    normalizedCover,
+    ...(item.images
+      ? item.images
+        .map((img) => normalizeImageUrl(img))
+        .filter((img) => Boolean(img) && img !== normalizedCover)
+      : []),
+  ].filter(Boolean);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const [imgError, setImgError] = useState(false);
+  const [isImgLoaded, setIsImgLoaded] = useState(false);
+  const currentImage = allImages[currentImageIndex] || normalizedCover;
 
   function nextImage(e: React.MouseEvent) {
     e.stopPropagation();
+    setIsImgLoaded(false);
     setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
   }
 
   function prevImage(e: React.MouseEvent) {
     e.stopPropagation();
+    setIsImgLoaded(false);
     setCurrentImageIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
   }
 
@@ -69,24 +82,32 @@ function MediaCard({
     }
   }
 
-  const [imgError, setImgError] = useState(false);
-  const currentImage = allImages[currentImageIndex] || item.img;
-
   return (
     <div
       className="card-item-optimized card-hover rounded-xl overflow-hidden flex flex-col cursor-pointer group bg-white border border-slate-200/90 shadow-xs"
       onClick={() => onOpenReviews?.(item)}
     >
       {/* Imagem de Capa ou Carrossel */}
-      <div className="relative h-44 overflow-hidden bg-slate-800">
-        {!imgError ? (
-          <img
+      <div className="relative h-44 overflow-hidden bg-slate-900">
+        {/* Placeholder Shimmer enquanto a imagem carrega */}
+        {!isImgLoaded && !imgError && (
+          <div className="absolute inset-0 bg-slate-800 animate-shimmer" />
+        )}
+
+        {!imgError && currentImage ? (
+          <Image
+            key={currentImage}
             src={currentImage}
             alt={item.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            loading="lazy"
-            decoding="async"
-            onError={() => setImgError(true)}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 350px"
+            onLoad={() => setIsImgLoaded(true)}
+            onError={() => {
+              setImgError(true);
+              setIsImgLoaded(true);
+            }}
+            className={`object-cover transition-all duration-500 ease-out group-hover:scale-105 ${isImgLoaded ? "opacity-100 blur-0 scale-100" : "opacity-0 blur-[2px] scale-105"
+              }`}
           />
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 p-4 text-center">
@@ -124,9 +145,8 @@ function MediaCard({
               {allImages.map((_, idx) => (
                 <span
                   key={idx}
-                  className={`h-1.5 rounded-full transition-all ${
-                    idx === currentImageIndex ? "w-3 bg-white" : "w-1.5 bg-white/50"
-                  }`}
+                  className={`h-1.5 rounded-full transition-all ${idx === currentImageIndex ? "w-3 bg-white" : "w-1.5 bg-white/50"
+                    }`}
                 />
               ))}
             </div>
@@ -157,9 +177,8 @@ function MediaCard({
               onMouseLeave={() => setConfirmDelete(false)}
               disabled={isDeleting}
               title={confirmDelete ? "Confirmar exclusão?" : "Excluir"}
-              className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors text-white cursor-pointer border border-white/15 ${
-                confirmDelete ? "bg-red-500 hover:bg-red-600" : "bg-black/70 hover:bg-black/90"
-              }`}
+              className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors text-white cursor-pointer border border-white/15 ${confirmDelete ? "bg-red-500 hover:bg-red-600" : "bg-black/70 hover:bg-black/90"
+                }`}
             >
               <Trash2 className="w-3.5 h-3.5" />
             </button>

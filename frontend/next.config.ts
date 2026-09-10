@@ -11,6 +11,19 @@ const backendApiUrl = backendBase.endsWith("/api")
   : `${backendBase}/api`;
 
 const nextConfig: NextConfig = {
+  images: {
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+      {
+        protocol: "http",
+        hostname: "**",
+      },
+    ],
+  },
   async rewrites() {
     return [
       {
