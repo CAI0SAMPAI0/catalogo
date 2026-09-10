@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from "react";
-import { TvIcon } from "@/components/MediaIcons";
-import MediaCard, { MediaCardItem } from "@/components/MediaCard";
-import ReviewModal from "@/components/ReviewModal";
+import FilterDropdown from "@/components/FilterDropdown";
 import GameModal from "@/components/GameModal";
 import InfiniteScrollSentinel from "@/components/InfiniteScrollSentinel";
-import { Serie, GameCreateInput } from "@/types/game";
-import { getSeries, createSerie, deleteSerie } from "@/lib/api";
-import { Plus, RefreshCw, AlertTriangle, Search } from "lucide-react";
+import MediaCard, { MediaCardItem } from "@/components/MediaCard";
+import { TvIcon } from "@/components/MediaIcons";
+import ReviewModal from "@/components/ReviewModal";
+import { createSerie, deleteSerie, getSeries } from "@/lib/api";
+import { GameCreateInput, Serie } from "@/types/game";
+import { AlertTriangle, Plus, RefreshCw, Search } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const PAGE_SIZE = 9;
 
@@ -47,10 +48,10 @@ export default function SeriesPage() {
   }, []);
 
   const genres = useMemo(() => {
-    const list = new Set<string>(["Todos", "Drama", "Crime", "Fantasia", "Animação", "Sci-Fi", "Mistério", "Thriller", "História"]);
+    const list = new Set<string>(["Todos"]);
     series.forEach((s) => {
       if (s.genre) list.add(s.genre);
-      if (s.type) list.add(s.type);
+      if (s.type && s.type !== s.genre) list.add(s.type);
     });
     return Array.from(list);
   }, [series]);
@@ -59,7 +60,7 @@ export default function SeriesPage() {
     return series.map((s) => ({
       id: s.id,
       title: s.name,
-      genre: [s.type, ...(s.genre ? [s.genre] : [])],
+      genre: Array.from(new Set([s.type, ...(s.genre ? [s.genre] : [])].filter(Boolean) as string[])),
       desc: s.description,
       year: s.release_date ? parseInt(s.release_date.split("-")[0]) : undefined,
       rating: s.average_rating,
@@ -69,6 +70,18 @@ export default function SeriesPage() {
       platforms: s.platforms,
     }));
   }, [series]);
+
+  const genreCounts = useMemo(() => {
+    const counts: Record<string, number> = { Todos: series.length };
+    mediaItems.forEach((item) => {
+      item.genre.forEach((g) => {
+        counts[g] = (counts[g] || 0) + 1;
+      });
+    });
+    return counts;
+  }, [mediaItems, series.length]);
+
+  const mainGenres = ["Todos", "Drama", "Sci-Fi", "Animação"];
 
   const filtered = useMemo(() => {
     return mediaItems.filter((item) => {
@@ -181,8 +194,8 @@ export default function SeriesPage() {
       )}
 
       {/* Busca e Filtros */}
-      <div className="flex flex-col gap-3 mb-6">
-        <div className="relative">
+      <div className="flex flex-col sm:flex-row gap-3 mb-6 items-stretch sm:items-center justify-between">
+        <div className="relative flex-1">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
@@ -193,24 +206,35 @@ export default function SeriesPage() {
           />
         </div>
 
-        <div className="flex gap-2 flex-wrap">
-          {genres.map((g) => {
-            const isActive = activeGenre === g;
-            return (
-              <button
-                key={g}
-                onClick={() => setActiveGenre(g)}
-                className={`text-xs px-3.5 py-1.5 rounded-full font-bold transition-all cursor-pointer ${
-                  isActive
-                    ? "bg-purple-600 text-white shadow-xs"
-                    : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
-                }`}
-                style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
-              >
-                {g}
-              </button>
-            );
-          })}
+        {/* Controles de Filtro: Pílulas Principais + Caixa Suspensa para todos os subgêneros */}
+        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+          <div className="flex gap-1.5 items-center overflow-x-auto scrollbar-hide">
+            {mainGenres.map((g) => {
+              const isActive = activeGenre === g;
+              return (
+                <button
+                  key={g}
+                  onClick={() => setActiveGenre(g)}
+                  className={`text-xs px-3 py-2 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap ${isActive
+                      ? "bg-purple-600 text-white shadow-xs"
+                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
+                >
+                  {g}
+                </button>
+              );
+            })}
+          </div>
+
+          <FilterDropdown
+            genres={genres}
+            activeGenre={activeGenre}
+            onSelectGenre={setActiveGenre}
+            accentColor={accentColor}
+            counts={genreCounts}
+            label="Gênero"
+          />
         </div>
       </div>
 

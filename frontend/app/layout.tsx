@@ -51,9 +51,6 @@ export default function RootLayout({
             >
               CATÁLOGO GEEK © {new Date().getFullYear()} — Hub de Entretenimento Geek
             </span>
-            <span className="text-xs badge-primary px-2.5 py-0.5 rounded-full font-bold">
-              v2.0 • Modo Claro
-            </span>
           </div>
         </footer>
       </body>

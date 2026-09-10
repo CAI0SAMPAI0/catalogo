@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from "react";
-import { BookIcon } from "@/components/MediaIcons";
-import MediaCard, { MediaCardItem } from "@/components/MediaCard";
-import ReviewModal from "@/components/ReviewModal";
+import FilterDropdown from "@/components/FilterDropdown";
 import GameModal from "@/components/GameModal";
 import InfiniteScrollSentinel from "@/components/InfiniteScrollSentinel";
+import MediaCard, { MediaCardItem } from "@/components/MediaCard";
+import { BookIcon } from "@/components/MediaIcons";
+import ReviewModal from "@/components/ReviewModal";
+import { createBook, deleteBook, getBooks } from "@/lib/api";
 import { Book, GameCreateInput } from "@/types/game";
-import { getBooks, createBook, deleteBook } from "@/lib/api";
-import { Plus, RefreshCw, AlertTriangle, Search } from "lucide-react";
+import { AlertTriangle, Plus, RefreshCw, Search } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const PAGE_SIZE = 9;
 
@@ -47,10 +48,10 @@ export default function BooksPage() {
   }, []);
 
   const genres = useMemo(() => {
-    const list = new Set<string>(["Todos", "Fantasia", "Sci-Fi", "Cyberpunk", "Distopia", "Épico", "Ficção", "Magia", "Político"]);
+    const list = new Set<string>(["Todos"]);
     books.forEach((b) => {
       if (b.genre) list.add(b.genre);
-      if (b.type) list.add(b.type);
+      if (b.type && b.type !== b.genre) list.add(b.type);
     });
     return Array.from(list);
   }, [books]);
@@ -59,7 +60,7 @@ export default function BooksPage() {
     return books.map((b) => ({
       id: b.id,
       title: b.name,
-      genre: [b.type, ...(b.genre ? [b.genre] : [])],
+      genre: Array.from(new Set([b.type, ...(b.genre ? [b.genre] : [])].filter(Boolean) as string[])),
       desc: b.description,
       year: b.release_date ? parseInt(b.release_date.split("-")[0]) : undefined,
       rating: b.average_rating,
@@ -69,6 +70,18 @@ export default function BooksPage() {
       platforms: b.platforms,
     }));
   }, [books]);
+
+  const genreCounts = useMemo(() => {
+    const counts: Record<string, number> = { Todos: books.length };
+    mediaItems.forEach((item) => {
+      item.genre.forEach((g) => {
+        counts[g] = (counts[g] || 0) + 1;
+      });
+    });
+    return counts;
+  }, [mediaItems, books.length]);
+
+  const mainGenres = ["Todos", "Fantasia", "Sci-Fi", "Cyberpunk"];
 
   const filtered = useMemo(() => {
     return mediaItems.filter((item) => {
@@ -178,8 +191,8 @@ export default function BooksPage() {
       )}
 
       {/* Busca e Filtros */}
-      <div className="flex flex-col gap-3 mb-6">
-        <div className="relative">
+      <div className="flex flex-col sm:flex-row gap-3 mb-6 items-stretch sm:items-center justify-between">
+        <div className="relative flex-1">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
@@ -190,24 +203,35 @@ export default function BooksPage() {
           />
         </div>
 
-        <div className="flex gap-2 flex-wrap">
-          {genres.map((g) => {
-            const isActive = activeGenre === g;
-            return (
-              <button
-                key={g}
-                onClick={() => setActiveGenre(g)}
-                className={`text-xs px-3.5 py-1.5 rounded-full font-bold transition-all cursor-pointer ${
-                  isActive
-                    ? "bg-amber-600 text-white shadow-xs"
-                    : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
-                }`}
-                style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
-              >
-                {g}
-              </button>
-            );
-          })}
+        {/* Controles de Filtro: Pílulas Principais + Caixa Suspensa para todos os subgêneros */}
+        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+          <div className="flex gap-1.5 items-center overflow-x-auto scrollbar-hide">
+            {mainGenres.map((g) => {
+              const isActive = activeGenre === g;
+              return (
+                <button
+                  key={g}
+                  onClick={() => setActiveGenre(g)}
+                  className={`text-xs px-3 py-2 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap ${isActive
+                      ? "bg-amber-600 text-white shadow-xs"
+                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
+                >
+                  {g}
+                </button>
+              );
+            })}
+          </div>
+
+          <FilterDropdown
+            genres={genres}
+            activeGenre={activeGenre}
+            onSelectGenre={setActiveGenre}
+            accentColor={accentColor}
+            counts={genreCounts}
+            label="Gênero"
+          />
         </div>
       </div>
 

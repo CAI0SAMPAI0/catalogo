@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from "react";
-import { GameIcon } from "@/components/MediaIcons";
-import MediaCard, { MediaCardItem } from "@/components/MediaCard";
+import FilterDropdown from "@/components/FilterDropdown";
 import GameModal from "@/components/GameModal";
-import ReviewModal from "@/components/ReviewModal";
 import InfiniteScrollSentinel from "@/components/InfiniteScrollSentinel";
+import MediaCard, { MediaCardItem } from "@/components/MediaCard";
+import { GameIcon } from "@/components/MediaIcons";
+import ReviewModal from "@/components/ReviewModal";
+import { createGame, deleteGame, getGames } from "@/lib/api";
+import { getGameCover } from "@/lib/catalogData";
 import { Game, GameCreateInput } from "@/types/game";
-import { getGames, createGame, deleteGame } from "@/lib/api";
-import { getGameCover, ALL_GENRES } from "@/lib/catalogData";
-import { Plus, RefreshCw, AlertTriangle, Search } from "lucide-react";
+import { AlertTriangle, Plus, RefreshCw, Search } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const PAGE_SIZE = 9;
 
@@ -48,12 +49,12 @@ export default function GamesCatalog() {
     loadGames();
   }, []);
 
-  // Extrai lista dinâmica de gêneros a partir dos jogos cadastrados + gêneros padrão
+  // Extrai lista dinâmica de gêneros a partir dos jogos cadastrados
   const genres = useMemo(() => {
-    const list = new Set<string>(ALL_GENRES.jogos);
+    const list = new Set<string>(["Todos"]);
     games.forEach((g) => {
       if (g.genre) list.add(g.genre);
-      if (g.type) list.add(g.type);
+      if (g.type && g.type !== g.genre) list.add(g.type);
     });
     return Array.from(list);
   }, [games]);
@@ -63,7 +64,7 @@ export default function GamesCatalog() {
     return games.map((g) => ({
       id: g.id,
       title: g.name,
-      genre: [g.type, ...(g.genre ? [g.genre] : [])],
+      genre: Array.from(new Set([g.type, ...(g.genre ? [g.genre] : [])].filter(Boolean) as string[])),
       desc: g.description,
       year: g.release_date ? parseInt(g.release_date.split("-")[0]) : undefined,
       rating: g.average_rating,
@@ -73,6 +74,18 @@ export default function GamesCatalog() {
       platforms: g.platforms,
     }));
   }, [games]);
+
+  const genreCounts = useMemo(() => {
+    const counts: Record<string, number> = { Todos: games.length };
+    mediaItems.forEach((item) => {
+      item.genre.forEach((g) => {
+        counts[g] = (counts[g] || 0) + 1;
+      });
+    });
+    return counts;
+  }, [mediaItems, games.length]);
+
+  const mainGenres = ["Todos", "RPG", "Ação", "Aventura"];
 
   // Filtra por busca e por gênero selecionado
   const filtered = useMemo(() => {
@@ -181,47 +194,48 @@ export default function GamesCatalog() {
         </div>
       )}
 
-      {/* Barra de Filtros e Busca */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-6 items-center justify-between">
-        {/* Input de Busca */}
-        <div className="relative w-full sm:w-72">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+      {/* Busca e Filtros */}
+      <div className="flex flex-col sm:flex-row gap-3 mb-6 items-stretch sm:items-center justify-between">
+        <div className="relative flex-1">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
-            placeholder="Buscar por nome, gênero..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-xs"
+            placeholder="Buscar jogos por nome, gênero ou sinopse..."
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm bg-white border border-slate-200 text-slate-900 placeholder-slate-400 shadow-xs focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/10 transition-all"
           />
-          {search && (
-            <button
-              onClick={() => setSearch("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600 cursor-pointer"
-            >
-              ✕
-            </button>
-          )}
         </div>
 
-        {/* Pílulas de Gênero */}
-        <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 sm:pb-0 scrollbar-hide">
-          {genres.map((genre) => {
-            const isSelected = activeGenre === genre;
-            return (
-              <button
-                key={genre}
-                onClick={() => setActiveGenre(genre)}
-                className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
-                  isSelected
-                    ? "bg-blue-600 text-white shadow-xs"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 border border-slate-200"
-                }`}
-                style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
-              >
-                {genre}
-              </button>
-            );
-          })}
+        {/* Controles de Filtro: Pílulas Principais + Caixa Suspensa para todos os subgêneros */}
+        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+          <div className="flex gap-1.5 items-center overflow-x-auto scrollbar-hide">
+            {mainGenres.map((g) => {
+              const isActive = activeGenre === g;
+              return (
+                <button
+                  key={g}
+                  onClick={() => setActiveGenre(g)}
+                  className={`text-xs px-3 py-2 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap ${isActive
+                      ? "bg-blue-600 text-white shadow-xs"
+                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
+                >
+                  {g}
+                </button>
+              );
+            })}
+          </div>
+
+          <FilterDropdown
+            genres={genres}
+            activeGenre={activeGenre}
+            onSelectGenre={setActiveGenre}
+            accentColor={accentColor}
+            counts={genreCounts}
+            label="Gênero"
+          />
         </div>
       </div>
 

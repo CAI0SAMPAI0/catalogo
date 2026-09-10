@@ -34,12 +34,22 @@ export default function Navbar() {
     { label: "Músicas", href: "/musics", icon: <MusicIcon className="w-4 h-4" />, color: "#22c55e" },
   ];
 
+  // identificar o item atual e pegar a cor correspondente
+  const activeItem = navItems.find((item) => item.href === pathname);
+  // definindo cor ativa e uma padrão caso para telas que não tem uma cor específica ainda
+  const currentColor = activeItem ? activeItem.color : "2563eb"
+
   return (
     <header className="sticky top-0 z-50 bg-white/98 border-b border-slate-200/90 shadow-xs">
       <div className="max-w-6xl mx-auto px-4 h-15 flex items-center justify-between gap-4">
-        {/* Logo */}
+        {/* Logo com cor sendo alterada de acordo com a cor principal dos elementos da tela*/}
         <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-tr from-blue-600 to-indigo-600 shadow-sm shadow-blue-500/30 group-hover:scale-105 transition-transform">
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center shadow-sm transition-all duration-500 ease-in-out group-hover:scale-105"
+          style={{
+            backgroundColor: currentColor,
+            boxShadow: `0 1px 2px 0 ${currentColor}40`
+          }}
+          >
             <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
               <path d="M21 6H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1z" />
             </svg>
@@ -51,9 +61,13 @@ export default function Navbar() {
             >
               CATÁLOGO
             </span>{" "}
+            {/* Geek sendo alterado da mesma forma que a logo */}
             <span
-              className="font-black text-sm tracking-tight text-blue-600"
-              style={{ fontFamily: "var(--font-orbitron), monospace" }}
+              className="font-black text-sm tracking-tight transition-colors duration-500 ease-in-out"
+              style={{
+                fontFamily: "var(--font-orbitron), monospace",
+                color: currentColor
+              }}
             >
               GEEK
             </span>

@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from "react";
-import { FilmIcon } from "@/components/MediaIcons";
-import MediaCard, { MediaCardItem } from "@/components/MediaCard";
-import ReviewModal from "@/components/ReviewModal";
+import FilterDropdown from "@/components/FilterDropdown";
 import GameModal from "@/components/GameModal";
 import InfiniteScrollSentinel from "@/components/InfiniteScrollSentinel";
-import { Movie, GameCreateInput } from "@/types/game";
-import { getMovies, createMovie, deleteMovie } from "@/lib/api";
-import { Plus, RefreshCw, AlertTriangle, Search } from "lucide-react";
+import MediaCard, { MediaCardItem } from "@/components/MediaCard";
+import { FilmIcon } from "@/components/MediaIcons";
+import ReviewModal from "@/components/ReviewModal";
+import { createMovie, deleteMovie, getMovies } from "@/lib/api";
+import { GameCreateInput, Movie } from "@/types/game";
+import { AlertTriangle, Plus, RefreshCw, Search } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const PAGE_SIZE = 9;
 
@@ -47,10 +48,10 @@ export default function MoviesPage() {
   }, []);
 
   const genres = useMemo(() => {
-    const list = new Set<string>(["Todos", "Sci-Fi", "Drama", "Ação", "Anime", "Neo-noir", "História"]);
+    const list = new Set<string>(["Todos"]);
     movies.forEach((m) => {
       if (m.genre) list.add(m.genre);
-      if (m.type) list.add(m.type);
+      if (m.type && m.type !== m.genre) list.add(m.type);
     });
     return Array.from(list);
   }, [movies]);
@@ -59,7 +60,7 @@ export default function MoviesPage() {
     return movies.map((m) => ({
       id: m.id,
       title: m.name,
-      genre: [m.type, ...(m.genre ? [m.genre] : [])],
+      genre: Array.from(new Set([m.type, ...(m.genre ? [m.genre] : [])].filter(Boolean) as string[])),
       desc: m.description,
       year: m.release_date ? parseInt(m.release_date.split("-")[0]) : undefined,
       rating: m.average_rating,
@@ -69,6 +70,18 @@ export default function MoviesPage() {
       platforms: m.platforms,
     }));
   }, [movies]);
+
+  const genreCounts = useMemo(() => {
+    const counts: Record<string, number> = { Todos: movies.length };
+    mediaItems.forEach((item) => {
+      item.genre.forEach((g) => {
+        counts[g] = (counts[g] || 0) + 1;
+      });
+    });
+    return counts;
+  }, [mediaItems, movies.length]);
+
+  const mainGenres = ["Todos", "Sci-Fi", "Drama", "Ação"];
 
   const filtered = useMemo(() => {
     return mediaItems.filter((item) => {
@@ -178,8 +191,8 @@ export default function MoviesPage() {
       )}
 
       {/* Busca e Filtros */}
-      <div className="flex flex-col gap-3 mb-6">
-        <div className="relative">
+      <div className="flex flex-col sm:flex-row gap-3 mb-6 items-stretch sm:items-center justify-between">
+        <div className="relative flex-1">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
@@ -190,24 +203,35 @@ export default function MoviesPage() {
           />
         </div>
 
-        <div className="flex gap-2 flex-wrap">
-          {genres.map((g) => {
-            const isActive = activeGenre === g;
-            return (
-              <button
-                key={g}
-                onClick={() => setActiveGenre(g)}
-                className={`text-xs px-3.5 py-1.5 rounded-full font-bold transition-all cursor-pointer ${
-                  isActive
-                    ? "bg-rose-600 text-white shadow-xs"
-                    : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
-                }`}
-                style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
-              >
-                {g}
-              </button>
-            );
-          })}
+        {/* Controles de Filtro: Pílulas Principais + Caixa Suspensa para todos os subgêneros */}
+        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+          <div className="flex gap-1.5 items-center overflow-x-auto scrollbar-hide">
+            {mainGenres.map((g) => {
+              const isActive = activeGenre === g;
+              return (
+                <button
+                  key={g}
+                  onClick={() => setActiveGenre(g)}
+                  className={`text-xs px-3 py-2 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap ${isActive
+                      ? "bg-rose-600 text-white shadow-xs"
+                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  style={{ fontFamily: "var(--font-rajdhani), sans-serif" }}
+                >
+                  {g}
+                </button>
+              );
+            })}
+          </div>
+
+          <FilterDropdown
+            genres={genres}
+            activeGenre={activeGenre}
+            onSelectGenre={setActiveGenre}
+            accentColor={accentColor}
+            counts={genreCounts}
+            label="Gênero"
+          />
         </div>
       </div>
 
