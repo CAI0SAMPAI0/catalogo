@@ -36,7 +36,12 @@ function getBaseUrl(): string {
  */
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const baseUrl = getBaseUrl();
-  const url = `${baseUrl}${endpoint}`;
+  // Garante que todo endpoint termine com "/" antes da query string para o Django Ninja não emitir 301 redirect
+  const [path, queryString] = endpoint.split("?");
+  const normalizedPath = path.endsWith("/") ? path : `${path}/`;
+  const normalizedEndpoint = queryString ? `${normalizedPath}?${queryString}` : normalizedPath;
+
+  const url = `${baseUrl}${normalizedEndpoint}`;
   const headers = {
     "Content-Type": "application/json",
     ...options.headers,
